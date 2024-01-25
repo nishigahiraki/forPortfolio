@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="../common/reset.css">
+		<title>test</title>
+		<style>
+			@charset "utf-8";
+			
+			div.testDiv {
+				width: 100px;
+				height: 100px;
+				margin: 100px;
+				background-color: brown;
+				opacity: 1.0;
+				/* transition: opacity 1s ease 0s; */
+			}
+	
+			div.testON {
+				opacity: 1.0;
+			}
+	
+			div.testOFF {
+				opacity: 0.0;
+			}
+			div.formParts {
+				width: 300px; height: auto;
+			}
+			div.formParts label {
+				display: block;
+			}
+			div.formParts label input {
+				display: inline;
+			}
+			
+			input[type="number"] {
+				text-align: right;
+				width: 4em;
+			}
+
+			.useHTML::after {
+				content: "HTML";
+				color: white;
+				background-color: red;
+			}
+
+			.useCSS::before {
+				content: "CSS";
+				color: white;
+				background-color: purple;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- div class="testDiv useHTML useCSS useJS"></div>
+		<a class="testBtn" href="">test</a -->
+		<div class="formParts">
+			<p>
+				<label><span>箱のサイズ[縦]：</span><input type="number" name="hacoH" value="240">px</label>
+				<label><span>箱のサイズ[横]：</span><input type="number" name="hacoW" value="240">px</label>
+			</p>
+			<p>
+				<label><span>分割数[縦]：</span><input type="number" name="bunkatsuY" value="3">こ</label>
+				<label><span>分割数[横]：</span><input type="number" name="bunkatsuX" value="3">こ</label>
+			</p>
+			<p>
+				<label><span>シャッフル：</span><input type="number" name="shuffleNum" value="1">セット</label>
+			</p>
+			<p>
+				<input type="button" id="buildBoxBtn" value="箱を作る">
+				<input type="button" id="newGameBtn" value="新規ゲーム">
+				<input type="button" id="shuffleBtn" value="シャッフル">
+				<input type="button" id="retryBtn" value="RETRY">
+			</p>
+		</div>
+		<script>
+			'use strict';
+			// const targetELMT = document.querySelector('div.testDiv');
+			// //
+			// //targetELMT.setAttribute( 'class',  'testOFF' );
+			// //targetELMT.classList.add( 'testOFF' );
+			// console.log(targetELMT.classList);
+			// targetELMT.style.opacity = 0.1;
+			// targetELMT.style.transitionProperty = 'opacity';
+			// targetELMT.style.transitionDuration = '1.0s';
+			// targetELMT.style.transitionTimingFunction = 'ease-in-out';
+			// console.log('targetELMT.style.opacity:', targetELMT.style.opacity);
+			// console.log('transitionDuration:', targetELMT.style.transitionDuration);
+			// let targetDeg = 0;
+			// let targetOpacity = 0.1;
+			// let mouseDownFlg = false;
+			// //
+			// targetELMT.addEventListener('mousedown', function (evt) {
+			// 	console.log('targetELMT_mousedown');
+			// 	mouseDownFlg = true;
+			// 	targetRotateCharge();
+			// });
+			// targetELMT.addEventListener('mouseup', function (evt) {
+			// 	console.log('targetELMT_mouseup');
+			// 	mouseDownFlg = false;
+			// });
+			// function targetRotateCharge() {
+			// 	targetDeg += 45;
+			// 	targetELMT.style.transform = `rotate(${targetDeg}deg)`;
+			// 	targetOpacity += 0.02;
+			// 	targetELMT.style.opacity = targetOpacity;
+			// 	targetELMT.style.transitionProperty = 'transform,opacity';
+			// 	//
+			// 	if (mouseDownFlg) {
+			// 		console.log('down');
+			// 		setTimeout(targetRotateCharge, 500);
+			// 	}
+			// 	else {
+			// 		targetDeg = 0;
+			// 		targetOpacity = 0.1;
+			// 		targetELMT.style.transform = `rotate(${targetDeg}deg)`;
+			// 		targetELMT.style.opacity = targetOpacity;
+			// 	}
+			// }
+			// //
+			// const testBtn = document.querySelector('a.testBtn');
+			// testBtn.addEventListener('click', function (evt) {
+			// 	console.log('testをクリック');
+			// 	evt.preventDefault();
+			// 	/* classListをチェックしてON/OFFを切り替え */
+			// 	// if(targetELMT.classList.contains('testOFF')) {
+			// 	// 	targetELMT.classList.remove( 'testOFF' );
+			// 	// 	targetELMT.classList.add( 'testON' );
+			// 	// }
+			// 	// else if(targetELMT.classList.contains('testON')) {
+			// 	// 	targetELMT.classList.remove( 'testON' );
+			// 	// 	targetELMT.classList.add( 'testOFF' );
+			// 	// }
+			// 	// else { console.log('想定外'); }
+			// 	/* toggleでON/OFFを切り替え */
+			// 	// targetELMT.classList.toggle( 'testOFF' );
+			// 	//
+			// 	/* style.opacityで表示を変更 */
+			// 	console.log(typeof (targetELMT.style.opacity)); // 型チェック
+			// 	if (targetELMT.style.opacity === '0') {
+			// 		targetELMT.style.opacity = '1.0'; // 「1」で格納される
+			// 	}
+			// 	else {
+			// 		targetELMT.style.opacity = '0.0'; // 「0」で格納される
+			// 	}
+			// 	//
+			// 	console.log(targetELMT.classList);
+			// 	console.log(targetELMT.style);
+			// 	//
+			// });
+			// //
+			// const myDiv = {
+			// 	x: 0,
+			// 	y: 0,
+			// 	goalX: 0,
+			// 	goalY: 0,
+			// 	Vx: 0,
+			// 	Vy: 0,
+			// 	width: 100,
+			// 	height: 100,
+			// 	bgColor: 'blue',
+			// 	element: '',
+			// 	//
+			// 	init: function () {
+			// 		console.log('init');
+			// 		this.element = document.createElement('div');
+			// 		document.body.appendChild(this.element);
+			// 		this.element.style.width = `${this.width}px`;
+			// 		this.element.style.height = `${this.height}px`;
+			// 		this.element.style.backgroundColor = this.bgColor;
+			// 		this.element.style.position = 'absolute';
+			// 		this.element.style.left = this.x;
+			// 		this.element.style.top = this.y;
+					
+			// 	},
+			// 	view: function () {
+			// 		console.log(this.x,this.y);
+			// 		console.log(this.element.style.position);
+					
+			// 		this.element.style.left = `${this.x-this.width/2}px`;
+			// 		this.element.style.top = `${this.y-this.height/2}px`;
+			// 	},
+			// 	move: function() {
+			// 		const wariai = 0.25;
+			// 		const gensui = 0.8;
+			// 		//
+			// 		const moveFunc = () => {
+			// 			this.Vx = (this.goalX - this.x) * wariai + gensui * this.Vx;
+			// 			this.Vy = (this.goalY - this.y) * wariai + gensui * this.Vy;
+			// 			//
+			// 			if( this.Vx*this.Vx + this.Vy*this.Vy > 0.01 ) {
+			// 				this.x += this.Vx;
+			// 				this.y += this.Vy;
+			// 				this.element.style.left = `${this.x-this.width/2}px`;
+			// 				this.element.style.top = `${this.y-this.height/2}px`;
+			// 				//
+			// 				setTimeout( moveFunc, 1000/24 );
+			// 			}
+			// 			else {
+			// 				this.element.style.left = `${this.goalX-this.width/2}px`;
+			// 				this.element.style.top = `${this.goalY-this.height/2}px`;
+			// 			}
+			// 		}
+			// 		moveFunc();
+					
+			// 	}
+			// }
+			// //
+			// myDiv.init();
+			// console.log(myDiv.element);
+	
+			// document.addEventListener('click',function(evt){
+			// 	//console.log('click_doc');
+			// 	myDiv.goalX = evt.clientX;
+			// 	myDiv.goalY = evt.clientY;
+			// 	//
+			// 	//myDiv.move();
+			// });
+	
+			// console.log('test-inner:',myDiv.element.innerHTML);
+			// console.log('test-outer:',myDiv.element.outerHTML);
+	
+			// let a=0;
+			// let b=0;
+			// a,b = 1,2;
+			// console.log(a,b);
+	
+			// myDiv.element.style['background-color'] = 'gold';
+			
+			// 使用変数関係 (初期化)
+			const gameSTs = {
+					hacoW : 240,
+					hacoH : 240,
+				bunkatsuX : 3,
+				bunkatsuY : 3,
+				shuffleNum : 1,
+			};
+			//
+			let testn = 5;
+			let testm = ( testn < 10 ) ? function(){console.log('10miman'); return 0;} : ()=>{console.log('10ijo'); return 10;};
+			console.log('test result:::', testm);
+			//
+
+			// スライドゲーム関係
+			class MyPanel {
+				constructor(No, width, height, parentElmt) {
+					this.parentElmt = parentElmt ? parentElmt : document.body;
+					this.No = No;
+					this.name = 'panel' + No;
+					this.width = width;
+					this.height = height;
+					//
+					this.posX = 0;
+					this.posY = 0;
+					this.isMoving = false;
+					//
+					this.timerID = undefined;
+				}
+				init() {
+					this.elmt = document.createElement( 'div' );
+					this.elmt.id = this.name;
+					this.elmt.innerHTML = `<p>${this.No}</p>`;
+					this.elmt.querySelector('p').style['width'] = `100%`;
+					this.elmt.querySelector('p').style['text-align'] = 'center';
+					this.elmt.querySelector('p').style['font-size'] = `${0.5*this.width/String(this.No).length}px`;
+					this.elmt.querySelector('p').style['pointer-events'] = `none`;
+					this.elmt.style['width'] = `${this.width}px`;
+					this.elmt.style['height'] = `${this.height}px`;
+					this.elmt.style['background-color'] = 'violet';
+					this.elmt.style['border-radius'] = `5px`;
+					this.elmt.style['display'] = 'flex';
+					this.elmt.style['align-items'] = 'center';
+					this.elmt.style['position'] = 'absolute';
+					this.elmt.style['left'] = `${this.posX}px`;
+					this.elmt.style['top'] = `${this.posY}px`;
+					//
+					//console.log(this.parentElmt);
+					this.parentElmt.appendChild(this.elmt);
+				}
+				move( goalX, goalY ) {
+					this.isMoving = true;
+					if( this.timerID !== undefined ) {
+						clearTimeout(this.timerID);
+					}
+					//
+					goalX = ( goalX ) ? goalX : this.posX;
+					goalY = ( goalY ) ? goalY : this.posY;
+					//
+					const wariai = 0.25;
+					const gensui = 0.5;
+					let Vx = 0;
+					let Vy = 0;
+					//
+					const moveFunc = () => {
+						Vx = (goalX - this.posX) * wariai + gensui * Vx;
+						Vy = (goalY - this.posY) * wariai + gensui * Vy;
+						//
+						if( Vx*Vx + Vy*Vy > 0.1) {
+							this.posX += Vx;
+							this.posY += Vy;
+							//
+							this.elmt.style['left'] = `${this.posX}px`;
+							this.elmt.style['top'] = `${this.posY}px`;
+							//
+							this.timerID = setTimeout( moveFunc, 1000/24 );
+						}
+						else {
+							this.isMoving = false;
+							this.posX = goalX;
+							this.posY = goalY;
+							this.elmt.style['left'] = `${this.posX}px`;
+							this.elmt.style['top'] = `${this.posY}px`;
+						}
+					}
+					moveFunc();
+				}
+				test() {
+					console.log(this.name,this.width,this.height,this.panelElmt);
+				}
+			}
+			//
+			//const testPanel = new MyPanel('テストパネル',100,100);
+			//testPanel.init();
+			//testPanel.test();
+			//
+			class Haco {
+				constructor(width, height, sepX, sepY) {
+					this.width = width;
+					this.height = height;
+					this.sepX = sepX;
+					this.sepY = sepY;
+					//
+					this.roomW = this.width / this.sepX;
+					this.roomH = this.height / this.sepY;
+					this.rooms = [];
+					for(let r = 0; r < this.sepX * this.sepY; r++) {
+						this.rooms[r] = {};
+						this.rooms[r].No = r;
+						this.rooms[r].Xo = this.roomW/2 + this.roomW*(r % sepX);
+						this.rooms[r].Yo = this.roomH/2 + this.roomH*(Math.floor(r/sepX));
+					}
+					//
+				}
+				init() {
+					this.hacoElmt = document.createElement( 'div' );
+					this.hacoElmt.style['width'] = `${this.width}px`;
+					this.hacoElmt.style['height'] = `${this.height}px`;
+					this.hacoElmt.style['background-color'] = 'gray';
+					this.hacoElmt.style['position'] = 'relative';
+					//
+					document.body.appendChild(this.hacoElmt);
+					//
+					this.panels = [];
+				}
+				clear() {
+					if(this.hacoElmt) {
+						this.hacoElmt.remove();
+					}
+				}
+				//
+				panelsSet(num) {
+					if(num > this.rooms.length) {
+						console.log('パネルの設定数が多すぎます。');
+						num = this.rooms.length;
+					}
+					for(let i=0; i<num; i++) {
+						const tempPanel = new MyPanel(i+1, this.width/this.sepX-3, this.height/this.sepY-3,this.hacoElmt);
+						tempPanel.posX = this.rooms[i].Xo - tempPanel.width/2;
+						tempPanel.posY = this.rooms[i].Yo - tempPanel.height/2;
+						tempPanel.init();
+						this.panels.push( tempPanel );
+					}
+				}
+				//
+			}
+			//
+			// フォーム内容取得関係
+			const shuffleNumInput = document.querySelector('input[name="shuffleNum"]'); // シャッフル回数の変更を監視する。
+			shuffleNumInput.addEventListener('change', function(evt) {
+				shuffleNumInput.value = gameSTs.shuffleNum = ( shuffleNumInput.value >= 0 ) ? shuffleNumInput.value : 0;
+			});
+			const buildBoxBtn = document.querySelector('input#buildBoxBtn');
+			console.log(buildBoxBtn);
+			buildBoxBtn.addEventListener('click', function(evt) {
+				// フォームから入力
+				const hacoW = document.querySelector('input[name="hacoW"]').value;
+				const hacoH = document.querySelector('input[name="hacoH"]').value;
+				const bunkatsuX = document.querySelector('input[name="bunkatsuX"]').value;
+				const bunkatsuY = document.querySelector('input[name="bunkatsuY"]').value;
+				//const shuffleNum = document.querySelector('input[name="shuffleNum"]').value;
+				//
+				console.log('input_hacoW ::::::', hacoW);
+				console.log('input_hacoH ::::::', hacoH);
+				console.log('input_bunkatsuX ::', bunkatsuX);
+				console.log('input_bunkatsuY ::', bunkatsuY);
+				//console.log('input_shuffleNum ::', shuffleNum);
+				//
+				gameSTs.hacoW = ( hacoW >= 50 ) ? hacoW : 240;
+				gameSTs.hacoH = ( hacoH >= 50 ) ? hacoH : 240;
+				gameSTs.bunkatsuX = ( 2 <= bunkatsuX && bunkatsuX < 99 ) ? bunkatsuX : 3;
+				gameSTs.bunkatsuY = ( 2 <= bunkatsuY && bunkatsuY < 99 ) ? bunkatsuY : 3;
+				//gameSTs.shuffleNum = ( shuffleNum >= 0 ) ? shuffleNum : 0;
+				//
+				console.log('input_hacoW ::::::', gameSTs.hacoW);
+				console.log('input_hacoH ::::::', gameSTs.hacoH);
+				console.log('input_bunkatsuX ::', gameSTs.bunkatsuX);
+				console.log('input_bunkatsuY ::', gameSTs.bunkatsuY);
+				//console.log('input_shuffleNum ::', gameSTs.shuffleNum);
+				//
+				// 新規ゲーム
+				slideGameHaco.clear(); // hacoをDOMから消す
+				slidGameInit(); // スライドゲーム初期化関数を呼び出し
+			});
+			// リトライボタン
+			const retryBtn = document.querySelector('input#retryBtn');
+			retryBtn.addEventListener('click', function(evt) {
+				//console.log(numList_forRetry);
+				// バックアップしておいたリストで配列を復帰
+				numList = [...numList_forRetry];
+				//
+				// リストを反映
+				for(let i=0; i<lastPanelNo; i++) {
+					const targetPanel = panelsOBJ[ 'panel' + (numList[i]) ];
+					//console.log(targetPanel.name);
+					targetPanel.posX = poss[i]._x;
+					targetPanel.posY = poss[i]._y;
+					targetPanel.move();
+				}
+			});
+			//
+			//スライドゲーム必要変数の初期化
+			let slideGameHaco = new Haco(gameSTs.hacoW, gameSTs.hacoH, gameSTs.bunkatsuX, gameSTs.bunkatsuY); // hacoの生成
+			let lastPanelNo = gameSTs.bunkatsuX * gameSTs.bunkatsuY; // 最後のパネルの番号
+			let numList = []; // 1~[lastPanlNo]を順番に格納したリスト
+			let numList_forRetry = []; // リトライ用のリスト
+			const poss = []; // 各パネルの座標の格納庫
+			const panelsOBJ = {}; // パネルelementを連想配列にしての格納庫
+			//
+			// スライドゲームの初期化関数
+			const slidGameInit = () => {
+				slideGameHaco = new Haco(gameSTs.hacoW, gameSTs.hacoH, gameSTs.bunkatsuX, gameSTs.bunkatsuY); // 新規のhacoを用意
+				slideGameHaco.init(); // hacoの初期化
+				lastPanelNo = gameSTs.bunkatsuX * gameSTs.bunkatsuY; // 最後のパネルの番号
+				slideGameHaco.panelsSet( lastPanelNo ); // lastPanelNo個のパネルを用意
+				//
+				numList.length = 0; // constで宣言されている配列をいっぺんに初期化する。
+				//
+				// 各パネルの初期位置をリスト化して格納
+				for(let i=0; i<lastPanelNo; i++) {
+					numList.push(i+1);
+					poss[i] = {};
+					poss[i]._x = slideGameHaco.panels[i].posX;
+					poss[i]._y = slideGameHaco.panels[i].posY;
+				}
+				//console.log('numList:::',numList);
+				//console.log(poss);
+				//
+				// パネルを連想配列に
+				slideGameHaco.panels.forEach(
+					function(myPanel) {
+						panelsOBJ[myPanel.name] = myPanel;
+						myPanel.elmt.addEventListener('click', checkAndMove);
+					});
+				//console.log('panelOBJ',panelsOBJ);
+			}
+			//
+			function panelShuffle( num ) {
+				// パネルのシャッフル処理
+				console.log('panelShuffle');
+				num = ( num ) ? num : 0;
+				let shuffleLog = [];
+				let shufflePear =[];
+				// シャッフル
+				for(let i=0; i<num; i++){
+					for(let j=0; j<2; j++) {
+						const index1 = Math.floor(Math.random()*(lastPanelNo-1));
+						let index2 = index1;
+						while( index1 === index2 ) {
+							index2 = Math.floor(Math.random()*(lastPanelNo-1));
+						}
+						//console.log('index::',index1,index2);
+						const temp = numList[index1];
+						numList[index1] = numList[index2];
+						numList[index2] = temp;
+					}
+				}
+				// リストを反映
+				for(let i=0; i<lastPanelNo; i++) {
+					const targetPanel = panelsOBJ[ 'panel' + (numList[i]) ];
+					//console.log(targetPanel.name);
+					targetPanel.posX = poss[i]._x;
+					targetPanel.posY = poss[i]._y;
+					targetPanel.move();
+				}
+				// リトライ用のバックアップ
+				numList_forRetry = [...numList]; // バックアップ
+				//console.log(numList);
+				//console.log(numList_forRetry);
+				//
+				//console.log('afterSuffle::',numList);
+				//testHaco.panels[lastPanelNo-1].elmt.style['display'] = 'none';
+				//console.log( panelsOBJ[`panel${lastPanelNo}`] );
+				panelsOBJ[`panel${lastPanelNo}`].elmt.style['opacity'] = 0.02; // 一旦透明度で対応
+			}
+			//panelShuffle();
+			//
+			// シャッフルボタン
+			console.log(document.querySelector('input#shuffleBtn'));
+			document.querySelector('input#shuffleBtn').addEventListener( 'click', () => {
+				console.log('click:::shuffleBtn:', gameSTs.shuffleNum);
+				panelShuffle( gameSTs.shuffleNum );
+			});
+			//
+			function checkAndMove(evt) {
+				//console.log(evt.target.id);
+				// 押したパネル
+				const clickPanel = panelsOBJ[evt.target.id];
+				//clickPanel.posX = poss[8]._x;
+				//clickPanel.posY = poss[8]._y;
+				//clickPanel.move();
+				//
+				if( clickPanel.isMoving ) {
+					// パネルが移動中なら何もしない
+					return;
+				}
+				//
+				// 移動判定(クリックしたパネルと空パネルの位置関係を調べる)
+				// 空のパネル
+				const emptyPanel = panelsOBJ[`panel${lastPanelNo}`];
+				// それぞれのマス上の位置
+				const clickPos = numList.indexOf(clickPanel.No);
+				const emptyPos = numList.indexOf(emptyPanel.No);
+				//console.log('pos:::::::',clickPos,emptyPos);
+				//
+				// パネル番号で判定
+				let canMove = true;
+				let numChecker = emptyPos - clickPos;
+				const movePanelList = [];
+				let tempPos = -1;
+				//
+				if( numChecker%gameSTs.bunkatsuX === 0 ) {
+					// 縦並び
+					// 動かす候補をリストに格納
+					tempPos = clickPos;
+					while( tempPos !== emptyPos ) {
+						movePanelList.push(tempPos);
+						tempPos = tempPos + numChecker/Math.abs(numChecker)*gameSTs.bunkatsuX;
+					}
+					movePanelList.push(emptyPos);
+					//console.log( movePanelList, movePanelList.length );
+				}
+				else if( Math.abs(numChecker) < gameSTs.bunkatsuX && Math.floor(clickPos/gameSTs.bunkatsuX) === Math.floor(emptyPos/gameSTs.bunkatsuX) ) {
+					// 横並び
+					// 動かす候補をリストに格納
+					tempPos = clickPos;
+					while( tempPos !== emptyPos ) {
+						movePanelList.push(tempPos);
+						tempPos = tempPos + numChecker/Math.abs(numChecker);
+					}
+					movePanelList.push(emptyPos);
+					//console.log( movePanelList, movePanelList.length );
+				}
+				// リストの後方から入れ替えていく
+				for(let i=movePanelList.length-1; i>0; i--) {
+					panelsOBJ[`panel${numList[movePanelList[i]]}`].move( poss[ movePanelList[i-1] ]._x, poss[ movePanelList[i-1] ]._y );
+					panelsOBJ[`panel${numList[movePanelList[i-1]]}`].move( poss[ movePanelList[i] ]._x, poss[ movePanelList[i] ]._y );
+					//リスト上の交換
+					const temp = numList[movePanelList[i]];
+					numList[movePanelList[i]] = numList[movePanelList[i-1]];
+					numList[movePanelList[i-1]] = temp;
+					//console.log(numList);
+				}
+				// クリア判定　(次の値が1ずつ増えていて、リストの最後までいけばOK)
+				let clearIs = true;
+				// console.log('********');
+				// console.log(numList);
+				// console.log(clearLIST);
+				// console.log('********');
+				// if( numList === clearLIST) {
+				// 	clearIs = true;
+				// 	testHaco.panels[lastPanelNo-1].elmt.style['display'] = 'block';
+				// }
+				for(let i=0; i<numList.length-1; i++) {
+					if( numList[i]+1 != numList[i+1] ) {
+						clearIs = false;
+						break;
+					}
+				}
+				if(clearIs) {
+					//testHaco.panels[lastPanelNo-1].elmt.style['display'] = 'block';
+					panelsOBJ[`panel${lastPanelNo}`].elmt.style['opacity'] = 1.0;
+					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-property'] = 'opacity';
+					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-duration'] = '1.5s';
+					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-timingFunction'] = 'ease';
+				}
+			}
+		</script>
+</body>
+
+</html>

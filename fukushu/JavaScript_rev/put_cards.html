@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="./css/reset.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="./css/style.css">
+		<title>HTML/CSSの復習|画像の複数配置</title>
+	</head>
+	<body>
+		<header>
+			<div class="stech">
+				<h1 class="ffDotGothixc16">HTML/CSSの<br class="onlySP">復習</h1>
+				<!--h1 class="wantToMove">HTML/CSSの復習</h1-->
+			</div>
+		</header>
+		<div class="layoutWrap">
+			<main>
+				<h2 id="titleYakuName">ロイヤルストレートフラッシュ</h2>
+				<span class="turnMes">第 <span id="viewTurn"></span>回戦</span>
+				<span class="restChangeMes"> / 交換回数 のこり：<span id="viewRestChange"></span>かい</span>
+				<span class="restCardMes"> / カード のこり：<span id="viewRestCard"></span>まい</span>
+				<div class="cardsBG" id="putCardsBG">
+					<img src="./img/card_spade_10.png" alt="スペードの10">
+					<img src="./img/card_spade_11.png" alt="スペードのJ">
+					<img src="./img/card_spade_12.png" alt="スペードのQ">
+					<img src="./img/card_spade_13.png" alt="スペードのK">
+					<img src="./img/card_spade_01.png" alt="スペードのA">
+				</div>
+				<div class="actBtnArea">
+					[<button id="judgeBTN">確定</button>]
+					[<button id="nextBTN">次へ</button>]
+					[<button id="sortBTN">ソート</button>]
+					[<button id="koukanBTN">交換</button>]
+					[<button id="finishBTN">終了</button>]
+					[<button id="debugBTN">デバグ[OFF]</button>]
+				</div>
+				<p class="cardsInfo" id="putCardsInfo">ポーカーでは、<br class="onlySP">手札を同じマークで10・J・Q・K・Aと揃えると、<br>
+				<span>「ロイヤルストレートフラッシュ」</span>という役になります。</p>
+			</main>
+			<aside>
+				<nav>
+					<h3>各ページへのリンク</h3>
+					<ul>
+						<li><a href="./index.html">文章</a></li>
+						<li><a href="./image.html">画像</a></li>
+						<li><a href="./table.html">表</a></li>
+						<li><a href="./put_cards.html" class="nowPage">画像の複数配置</a></li>
+					</ul>
+				</nav>
+			</aside>
+		</div>
+		<div class="cardRirekiView">
+			<div class="rirekiLine"><span>カード使用履歴</span></div>
+		</div>
+		<footer>
+			<div class="stech">
+				<p class="ffDotGothixc16"><small>Nishigahiraki Ai</small></p>
+			</div>
+		</footer>
+		<script src="./script/script.js"></script>
+	</body>
+</html>

@@ -1,0 +1,580 @@
+@charset "utf-8";
+
+body {
+	background-color: #ffffef;
+	font-family: sans-serif;
+}
+
+img {
+	width: 100px;
+	height: 150px;
+}
+
+header {
+	//width: 1000px;
+	width: 95vw;
+	
+	padding: 10px;
+	margin: 0px auto 10px;
+	
+	text-align: center;
+	//background-color: #403030;
+	background-color: #bb3030;
+	
+	//box-shadow: 0px -45px 2px 2px #200000 inset;
+	
+	//border: 2px solid black;
+	//border-radius: 0px 0px 25% 25%;
+	border-bottom: 3px solid #eb6060;
+	border-radius: 0px 0px 110px 110px;
+}
+
+header div.stech {
+	border-left: 4px dashed #491313;
+	border-right: 4px dashed #491313;
+	border-bottom: 4px dashed #491313;
+	border-radius: 0px 0px 100px 100px;
+	
+	//position: relative;
+}
+
+footer {
+	//width: 900px;
+	width: 100%;
+	padding: 10px 10px 10px;
+	
+	text-align: center;
+	//background-color: #606060;
+	background-color: #bb3030;
+	border-top: 3px solid #eb6060;
+	//border-radius: 0px 0px 50% 50%;
+	border-radius: 5px 5px 0px 0px;
+	
+	position: fixed;
+	bottom: 0px;
+}
+
+footer div.stech {
+	border-top: 4px dashed #491313;
+	padding-top: 10px;
+}
+
+div.layoutWrap {
+	//width: 900px;
+	width: 90wv;
+	
+	padding: 10px 5px;
+	//margin: 0px auto 5px;
+	margin: 0px auto 70px;
+	
+	//background-color: gray;
+	
+	display: flex;
+	justify-content: space-evenly;
+}
+
+div.cardRirekiView {
+	padding: 10px;
+	margin-top: -70px;
+	margin-bottom: 70px;
+}
+
+main {
+	min-height: 350px;
+	
+	flex-basis: 650px;
+	//width: 650px;
+	//height: 400px;
+	padding: 5px 5px 5px;
+	
+	background-color: #ffffcc;
+	border: 1px solid #a6a622;
+	border-bottom: 3px solid #a6a622;
+	border-radius: 20px;
+}
+
+aside nav {	
+	background-color: #bb3030;
+
+	flex-basis: 210px;
+	
+	padding: 15px 10px 10px;
+
+	border-top: 3px solid #eb6060;
+	border-bottom: 3px solid #6b1010;
+	border-radius: 20px;
+}
+
+aside nav ul {
+	//background-color: #606060;
+	padding: 0px 10px 5px;
+
+	border-left: 4px dashed #491313;
+	border-right: 4px dashed #491313;
+	border-bottom: 4px dashed #491313;
+	border-radius: 0px 0px 10px 10px;
+}
+
+aside nav ul li a {
+	display: inline-block;
+	width: 100%;
+	padding: 5px 20px;
+	margin: 5px 0px 10px;
+	background-color: #FFeeee;
+	
+	border: 2px solid #900e0e;
+	border-radius: 20px;
+	
+	color: #900e0e;
+	font-weight: bold;
+
+	transform: translateY(0px);
+
+	//transition-property: color, background-color, margin, border, box-shadow;
+	transition-property: all;
+	transition-duration: 300ms;
+	transition-timing-function: ease;
+	transition-delay: 0ms;
+}
+
+aside nav ul li a:hover{
+	color: #c03030;
+	background-color: #FFeeee;
+	/*
+	margin: 0px 0px 15px;
+	*/
+	transform: translateY(-5px);
+	border: 2px solid white;
+	box-shadow: 0px 3px 5px 1px #202020;
+}
+
+.ffDotGothixc16 {
+	font-family: "DotGothic16", sans-serif;
+}
+
+h1 {
+	//color: rgba(220, 185, 0, 0.9);
+	//color: rgba(256, 256, 156, 1);
+	color: #ffffaa;
+	//filter: drop-shadow(0px 0px 3px black);
+	//filter: drop-shadow(0px 0px 2px black);
+	
+	width: 100%;
+	//background-color: #66c;
+
+	font-size: 60px;
+	font-weight: bold;
+	letter-spacing: 2vw;
+
+	margin: 2px 0px 25px;
+
+	position: relative;
+	z-index: 100;
+}
+
+h1::after {
+	//background-color: #c66;
+	content:"HTML/CSSの復習";
+	width: 100%;
+	color: #491313;
+	position: absolute;
+	//left: 10px;
+	//top: -62px;
+	left: 10px; bottom: -5px;
+	z-index: -1;
+}
+
+
+/*
+h1.wantToMove {
+	position: absolute;
+	color: #491313;
+	left: 50px;
+	top: 0px;
+}
+*/
+h2 {
+	color: #6666FF;
+	font-size: 30px;
+	font-weight: bold;
+	
+	background-color: #CCCCFF;
+	padding: 7px 15px 5px;
+	margin-bottom: 5px;
+	border-radius: 15px 15px 0px 0px;
+	
+	box-shadow: 0px 15px 2px 2px #f0f0ff inset;
+	border: 1px solid #9696aa;
+}
+
+h3 {
+	text-align: center;
+	color: #ffffaa;
+	font-size: 20px;
+	font-weight: bold;
+
+	margin-bottom: 10px;
+	padding: 0px 5px;
+
+	//padding: 15px 0px 0px;
+	//background-color: #606060;
+	//border-radius: 20px 20px 0px 0px;
+}
+
+footer p {
+	width: 150px;
+	margin: 0 auto;
+	
+	//color: darkgray;
+	//color: rgba(220, 185, 0, 1);
+	color: #ffffaa;
+	
+	border: 1px solid black;
+	
+	padding: 2px 0px 8px;
+	
+	//background-color: #f0e080;
+	//box-shadow: 0px -11px 0px 2px #806010 inset;
+	background-color: #907010;
+	box-shadow: 0px 0px 0px 3px #f0e080 inset;
+
+	//background-color: #302520;
+	//box-shadow: 0px -11px 2px 2px #200000 inset;
+	border-radius: 15px;
+}
+
+.layoutImg,
+.layoutTbl {
+	//height: 100%;
+	min-height: 350px;
+	
+	//text-align: center;
+	padding: 15px 10px;
+	
+	background-color: rgba(248,248,256,1);
+	border-radius: 0px 0px 15px 15px;
+	
+	box-shadow: 0px 0px 5px 1px #9999aa inset;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.cardView {
+	/* カード表示+テキストの枠 */
+	text-align: center;
+}
+div.cardView div {
+	margin-bottom: 10px;
+}
+
+th, td {
+	border: 1px solid black;
+	text-align: center;
+	padding: 5px;
+}
+
+table {
+	display: inline;
+}
+
+div.cardsBG {
+	background-color: green;
+	border: 5px double gold;
+	border-radius: 20px;
+	
+	box-shadow: 0px 30px 20px -5px #009f00 inset;
+	
+	padding: 30px 15px;
+	margin: 15px 10px 15px;
+	
+	display: flex;
+	justify-content: space-around;
+}
+
+/*
+div.cardsBG img {
+	filter: drop-shadow(3px 5px 6px #004500);
+}
+*/
+
+img {
+	user-select: none;
+}
+
+div:has( >img[alt="トランプの裏面"] ) {
+	width: 120px; height: 170px;
+	position: relative;
+	margin: 0 auto 10px;
+	perspective: 300px;
+	/**/background-color: rgba(128,128,128,0.25);
+	border-radius: 10px;/**/
+}
+
+img[alt="トランプの裏面"] {
+	position: absolute;
+	left: 10px; top: 10px;
+	filter: drop-shadow(3px 5px 6px #9999aa);
+	backface-visibility: hidden;
+	transform: translate3d(0px, 0px, 0px);
+	transition: all 0.6s ease 0s;
+}
+
+img[alt="トランプの表面"] {
+	position: absolute;
+	left: 10px; top: 10px;
+	filter: drop-shadow(3px 5px 6px #9999aa);
+	backface-visibility: hidden;
+	transform: rotate3d( 0, 10, 0, -180deg) translate3d( 50px, 0px, 0px);
+	transition: all 0.6s ease 0s;
+}
+
+img[alt="トランプの裏面"]:active {
+	transform: rotate3d( 0, 10, 0, 180deg) translate3d(50px, 0px, 0px);
+}
+img[alt="トランプの裏面"]:active~img[alt="トランプの表面"] {
+	transform: rotate3d( 0, 10, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+
+p.cardsInfo {
+	line-height: 1.5;
+	padding: 0px 25px 20px;
+}
+
+p.cardsInfo span {
+	color: red;
+	font-weight: bold;
+}
+
+div.cardsBG img {
+	filter: drop-shadow(3px 5px 6px #004500);
+	transform: rotate(0deg);
+	transition: all 1s ease 0s;
+}
+
+div.cardsBG img:hover {
+	transform: rotate(10deg);
+	filter: drop-shadow(3px 5px 6px #004500);
+	transition: all 0.3s ease 0s;
+}
+
+@media screen and (min-width: 640px){
+	.onlySP {
+		display: none;
+	}
+
+	aside nav ul li a {
+		box-shadow: 0px -12px 0px 0px pink inset;
+	}
+
+	aside nav ul li a::before {
+		content: "○";
+		font-weight: bold;
+		margin-left: -10px;
+	}
+	
+	aside nav ul a.nowPage::before {
+		content: "●";
+		color: #6666FF;
+	}
+	
+}
+
+@media screen and (max-width: 640px){
+	header {
+		width: 100%;
+		padding-top: 0px;
+		border-radius: 0px 0px 75px 75px;
+	}
+	header div.stech {
+		padding-top: 5px;
+		border-radius: 0px 0px 65px 65px;
+	}
+
+
+	footer {
+		width: 100%;
+		border: 0px;
+		border-radius: 0px;
+	}
+	footer div.stech {
+		border-top: 0px;
+		border-left: 4px dashed #491313;
+		border-right: 4px dashed #491313;
+		padding-top: 0px;
+	}
+	
+	div.layoutWrap {
+		width: 100%;
+		padding: 10px 0px 0px;
+		margin-bottom: 110px;
+		display: block;
+	}
+	
+	h1 {
+		font-size: 50px;
+		line-height: 1;
+
+		margin: 0px 0px 15px;
+	}
+
+	h1::after {
+		white-space: pre-wrap;
+		content: "HTML/CSSの\A復習";
+		font-size: 50px;
+		line-height: 1;
+
+		left: 6px;
+	}
+	
+	h2 {
+		font-size: 20px;
+	}
+	
+	h3 {
+		font-size: 18px;
+		margin: 5px auto;
+	}
+
+	h3::before {
+		content: "▼";
+	}
+	h3::after {
+		content: "▼";
+	}
+	
+	.layoutWrap main {
+		margin: 0px 10px 20px;
+	}
+	
+	aside nav {
+		width: 100%;
+		padding: 10px 10px; 0px;
+		border-bottom: 0px;
+		border-radius: 20px 20px 0px 0px;
+	}
+
+	aside nav ul {
+		background-color: #FFFFCC;
+		padding: 0px 5px;
+		border-radius: 5px;
+		
+		border: 2px solid #602020;
+
+		border-bottom: 0px;
+
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	aside nav ul li a {
+		text-align: center;
+		width: 17vw;
+		padding: 5px 10px;
+		margin-bottom: 5px;
+
+		color: #bb3030;
+		background-color: pink;
+		border: 0px;
+		border-radius: 15px;
+	}
+
+	aside nav ul li a[href="./put_cards.html"] {
+		width: 38vw;
+	}
+	
+	aside nav ul a.nowPage {
+		color: white;
+		background-color: #a0a0FF;
+	}
+
+	div.cardsBG img {
+		width: 14vw;
+		height: 100%;
+		//object-fit: contain;
+	}
+	
+	div.cardsBG {
+		padding: 20px 10px;
+	}
+	
+	p.cardsInfo {
+		font-size: 12px;
+		padding: 0px 10px;
+	}
+
+	aside nav {
+		position: fixed;
+		bottom:0px;
+	}
+
+	aside nav:hover{
+		bottom: 50px;
+		
+		transition-property: bottom;
+		transition-duration: 300ms;
+		transition-timing-function: ease;
+		transition-delay: 0ms;
+	}
+}
+
+/* [確定] 出す様 */
+#titleYakuName > span {
+	display : inline-block;
+	color : #f33;
+	animation : stampAnime 0.15s ease forwards;
+}
+
+
+@keyframes stampAnime {
+	0% { opacity : 0.1; transform : scale(2.0) rotate(5deg);}
+	90% { opacity : 1.0; transform : scale(0.9) rotate(5deg);}
+	100% { opacity : 1.0; transform : scale(1.0) rotate(5deg);}
+}
+
+/** 進数変換 **/
+h2 span.yomi {
+	font-size: 0.335em;
+	position: absolute;
+	margin: 1.0em 0.5em;
+}
+div.layoutImg:has(form) {
+	display: block;
+	text-align: left;
+}
+form {
+	background-color: yellow;
+	border-radius: 8px;
+	text-align: left;
+	padding: 0px 10px;
+	margin: 5px 5px;
+}
+form> input {
+	background-color: #fff;
+	border: 2px solid #666;
+	border-radius: 5px;
+	padding: 3px;
+	margin: 5px;
+}
+form> input.inputNum {
+	text-align: right;
+	width: 100px;
+}
+table.view {
+	//border: 1px solid #999;
+	font-size: 10px;
+	margin: 20px 5px;
+}
+table.view tr.sinsu2 td {
+	width: 15px;
+	padding: 2px 0px;
+}
+table.view tr.sinsu2 td.ON {
+	height: 50px;
+	background-color: #ccc;
+}
+table.view tr.sinsu2 td.OFF {
+	height: 50px;
+	background-color: #fff;
+}
