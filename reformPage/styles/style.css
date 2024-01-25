@@ -1,0 +1,2635 @@
+@charset "utf-8";
+
+html {
+	scroll-behavior: smooth;
+}
+
+body {
+	/** フォントの指定(仮置き) **/
+	//font-family: 'Noto Sans JP', sans-serif;
+	//font-family: 'Noto Serif JP', serif;
+	
+	background-color: gray; /* 本体表示エリア外の色 */
+	position: relative;
+	
+	/* 色設定 */
+	--thisBlue: #223E69;
+	--thisRed: #B71B26;
+	--thisBlack: #333;
+	--thisWhite: #fff;
+	
+	/* 本体表示エリアのサイズ設定 */
+	--nowViewAreaMAX: 1366px;
+	/* 本体表示エリア本体のサイズ設定 */
+	--nowViewAreaBODY: 1020px;
+	
+	/* スマホ用のブレイクポイント */
+	--SP_BREAK: 768px;
+	/* PC用の最大表示範囲 */
+	--PC_BREAK: 1366px;
+	
+	/* logoの横幅 */
+	--thisLogoW: 400px;
+
+	/* headerの高さ */
+	--thisHeaderH: 80px;
+	
+	/* スクロールバーの幅 */
+	--thisScrollBarW: 16px;
+	
+	/**background-color: yellow; /* 表示確認用 */
+}
+body::before {
+	/* 本体表示エリア */
+	display: block;
+	content: "";
+	width: var(--nowViewAreaMAX);
+	height: 100vh;
+	position: fixed;
+	left: calc( (100% - var(--nowViewAreaMAX)) / 2 );
+	top: 0px;
+	background-color: white; /* 表示本体の背景 */
+	z-index: -1;
+}
+/***** HEADER *****/
+header {
+	width: 100%;
+	position: fixed;
+	left: 0px; top: 0px;
+	z-index: 100;
+	background-color: var(--thisWhite);
+}
+header>div.myPins {
+	max-width: var(--nowViewAreaMAX);
+	//max-width: 1366px;
+	width: 100%;
+	padding: 24px;
+	margin: 0px auto;
+	background-color: var(--thisWhite);
+	
+	position: relative;
+}
+header>div.myPins>h1.logo>a>img {
+	width: var(--thisLogoW);
+	height: auto;
+}
+/***** Navi *****/
+input#navMenu {
+	/** チェックボックスを隠す **/
+	display: None;
+}
+nav {
+	//width: 1366px;
+	left: calc(var(--thisLogoW) + 48px);
+	//right: 0px;
+	//bottom: 24px;
+
+	position: absolute;
+
+	/** background-color: yellow;/* 表示確認用 */
+}
+/*** navの幅、位置指定 ***/
+@media screen and (min-width:1280px) {
+	/** Navが1段になる時(navH:36px) **/
+	nav { top: calc( (var(--thisHeaderH) - 32px) / 2 ); }
+}
+@media screen and (max-width:1280px) {
+	/** Navが2段になる時(navH:72px) **/
+	nav { top: calc( (var(--thisHeaderH) - 32px * 2) / 2 ); }
+}
+@media screen and (min-width: 768px){
+	/** Navの横幅を設定 **/
+	nav {
+		max-width: calc(var(--nowViewAreaMAX) - var(--thisLogoW) - 48px);
+		width: calc(100% - var(--thisLogoW) - 48px);
+		min-width: calc(816px - var(--thisLogoW) - 48px);
+	}
+}
+@media screen and (min-width: 768px) {
+	/* for PC 特殊設定 */
+	/* CONCEPTを非表示に *
+	nav>ul>li>a[href="#CONCEPT"] {
+		margin: 0px;
+		display: None;
+	}/**/
+}
+nav>ul {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	flex-wrap: wrap;
+	
+	overflow: hidden;
+	/**background-color: rgba(0,0,0,0.2); /* 表示確認用 */
+}
+nav>ul>li {
+	//margin-right: 40px;
+	margin-left: 40px;
+	margin-right: 0px;
+	Padding: 0.5em auto;
+	
+	transition: all 0.6s ease 0s;
+}
+/**/
+@media screen and (min-width:768px) {
+	/* navメニューの設定 */
+	/*
+	nav {
+		/* 一文字当たりの横幅 *
+		--thisMoji: calc(16px + 5.0px); /* size:16pxより大きな値に *
+		--thisSpaceNormal: 48px;
+		--thisSpaceMin: 25px;
+		
+		//368+400+48
+		//--widthMin: calc(841px - 400px - 48px);
+		--widthMin:calc(24px + 5 * var(--thisMoji) + var(--thisSpaceMin) + 4 * var(--thisMoji) + var(--thisSpaceMin) + 5 * var(--thisMoji) + 25px);
+		//--widthNormal: calc(887px - 400px -48);
+		--widthNormal:calc(24px + 5 * var(--thisMoji) + var(--thisSpaceNormal) + 4 * var(--thisMoji) + var(--thisSpaceNormal) + 5 * var(--thisMoji) + 25px);
+	}
+	nav::before {
+		display: inline-block;
+		content: "width-test";
+		color: var(--thisWhite);
+		font-family: 'Noto Serif JP', serif;
+		font-size: 16px;
+		font-weight: 500;
+		letter-spacing: 0.1em;
+	
+		width: var(--widthNormal);
+		height: attr(data-width px);
+		background-color: purple;
+	}
+	nav::after {
+		display: inline-block;
+		color: white;
+		content: "normal-width";
+
+		width: calc(24px + 5 * var(--thisMoji) + var(--thisSpaceNormal) + 4 * var(--thisMoji) + var(--thisSpaceNormal) + 5 * var(--thisMoji) + 25px);
+		//width: 4em;
+		background-color: purple;
+	} /**/
+	nav>ul>li:last-child {
+		/** navの最後のコマ **/
+		margin-right: 25px;
+		/** background-color: gold; /* 表示確認用 */
+	}
+	@media screen and (max-width:1280px) {
+		/** Navが2段になる時(navH:36px) **/
+		nav>ul>li:nth-child(1) {
+			/** navの最初のコマ **/
+			margin-left: 200px;
+			/** background-color: gray; /* 表示確認用 */
+		}
+			nav>ul>li:nth-child(2) {
+			/** background-color: blue; /* 表示確認用 */
+		}
+		nav>ul>li:nth-child(3) {
+			margin-right: 25px;
+			margin-left: calc(40px + 1em);
+			/** background-color: pink; /* 表示確認用 */
+		}
+		nav>ul>li:nth-child(4) {
+			margin-left: 200px;
+			/** background-color: red; /* 表示確認用 */
+		}
+		nav>ul>li:last-child {
+		}
+	}
+	@media screen and (max-width:1100px){
+		nav>ul>li:nth-child(1) {
+			/** navの最初のコマ **/
+			margin-left: 100px;
+		}
+	}
+	@media screen and (max-width:975px){
+		nav>ul>li:nth-child(4) {
+			margin-left: 100px;
+			/** background-color: red; /* 表示確認用 */
+		}
+	}
+	@media screen and (max-width:978px){
+		nav>ul>li:nth-child(1) {
+			margin-left: 24px;
+		}
+		nav>ul>li:nth-child(2),
+		nav>ul>li:nth-child(3)	{
+			margin-left: 25px;
+		}
+		nav>ul>li:nth-child(4) {
+			margin-left: 24px;
+		}
+	}
+	@media screen and (max-width:840px){
+		/** Navが2段に最短横幅 **/
+		nav>ul {
+			justify-content: space-around;
+		}
+		nav>ul>li:nth-child(1) {
+			margin-left: 12px;
+		}
+		nav>ul>li:nth-child(2) {
+			margin-left: 25px;
+		}
+		nav>ul>li:nth-child(3) {
+			margin-left: 25px;
+			margin-right: 12px;
+		}
+		nav>ul>li:nth-child(4) {
+			margin-left: 12px;
+			margin-right: auto;
+		}
+		nav>ul>li:last-child {
+			margin-left: auto;
+			margin-right: 12px;
+		}
+	}
+}
+/**/
+nav>ul>li>a {
+	display: inline-block;
+	padding: 5px;
+	position: relative;
+	overflow: hidden;
+	z-index: 1;
+	/**background-color: blue;/* 表示確認用 */
+}
+nav>ul>li>a>span {
+	color: var(--thisBlack);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 16px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+}
+nav>ul>li>a::after {
+	content:"";
+	display: block;
+	width: 100%; height:100%;
+	position: absolute;
+	left: 0px; top: 0px;
+	background-color: #dee2e9;
+	transform-origin: right bottom;
+	transform: translateX(-101%);
+	z-index: -1;
+
+	transition: transform 0.2s linear 0s;
+}
+nav>ul>li>span.tagTail,
+nav>ul>li>span.tagTail2 {
+	display: inline-block;
+	width: 30px; height:30px;
+	overflow: hidden;
+	transform-origin: center;
+	transform: translateX(-70%) rotate(45deg);
+	position: absolute;
+	/**background: red; /* 表示確認用 */
+}
+nav>ul>li>span.tagTail::after {
+	content:"";
+	display: block;
+	width: 100px; height: 28.5px; /* height値要検討 */
+	transform-origin: left top;
+	transform: scale(0) translate(-62px,71px) rotate(-45deg);
+	background-color: #dee2e9;
+	position: absolute;
+}
+nav>ul>li>span.tagTail2 {
+	position: absolute;
+	overflow:visible;
+	transform: translate(-19px,2px) rotate(45deg);
+}
+nav>ul>li>span.tagTail2::before {
+	content: "";
+	display: block;
+	width: 24px; height: 22px;
+	position: absolute;
+	top:0px; right:0px;
+	z-index: 2;
+}
+/***** navi anime *****/
+@media screen and (min-width:768px) {
+	/* リンクのホバー設定 */
+	nav>ul>li>a:hover::after {
+		transform: translateX(0%);
+		transition: transform 0.2s linear 0.3s;
+	}
+	nav>ul>li>a:hover ~span.tagTail::after { 
+		animation-name: tagTailAnime;
+		animation-duration: 0.1s;
+		animation-timing-function: linear;
+		animation-iteration-count: 1;
+		animation-delay: calc(0.2s + 0.3s);
+		animation-fill-mode: forwards; /* animationを最後のフレームで止める */
+	}
+	nav>ul>li>a:hover ~span.tagTail2:before {
+		border-top: 2px solid #dee2e9;
+		border-right: 5px solid #dee2e9;
+	}
+	nav>ul>li>a:hover ~span.tagTail2 {
+		transform: translate(-10px,2px) rotate(45deg);
+		transition: transform 0.1s linear calc(0.3s + 0.3s);
+	}
+	@keyframes tagTailAnime {
+		0% { transform: scale(0) translate(-62px,71px) rotate(-45deg); }
+		10% { transform: scale(1) translate(-62px,71px) rotate(-45deg); }
+		100% { transform: scale(1) translate(-51px,60px) rotate(-45deg); }
+	}
+	/***** navi 登場 anime *****/
+	nav>ul>li {
+		position: relative;
+		top: calc(16px * 2);
+	}
+	nav>ul>li:nth-child(1) {
+		animation: navStartAnime 1.5s ease-in-out calc(0.8s + 0.2s * 0 ) both;
+	}
+	nav>ul>li:nth-child(2) {
+		animation: navStartAnime 1.5s ease-in-out calc(0.8s + 0.2s * 1 ) both;
+	}
+	nav>ul>li:nth-child(3) {
+		animation: navStartAnime 1.5s ease-in-out calc(0.8s + 0.2s * 2 - 0.05s) both;
+	}
+	nav>ul>li:nth-child(4) {
+		animation: navStartAnime 1.5s ease-in-out calc(0.8s + 0.2s * 3 - 0.10s) both;
+	}
+	nav>ul>li:nth-child(5) {
+		animation: navStartAnime 1.5s ease-in-out calc(0.8s + 0.2s * 4 - 0.15s) both;
+	}
+	@media screen and (max-width:1100px) {
+		/** Navが2段になる時(navH:36px) **/
+		@keyframes navStartAnime {
+			0% {top: 0px; opacity: 0;}
+			100% {top: 0px; opacity: 1;}
+		}
+	}
+	@media screen and (min-width:1100px) {
+		/** Navが1段になる時(navH:72px) **/
+		@keyframes navStartAnime {
+			0% { top: calc(16px * 2); opacity: 0.3;}
+			60% { top: -5px; }
+			100% { top: 0px; opacity: 1;}
+		}
+	}
+}
+
+/***** MAIN *****/
+main {
+	text-align: center;
+	position: relative; 
+}
+/*** HERO ***/
+main>div.heroLayout {
+	width: 100%;
+	/** border: 2px solid yellow; /* 表示確認用 */
+}
+/*****************************************/
+/** heroLayoutの横幅指定 **/
+@media screen and (min-width:1366px) {
+	main>div.heroLayout>div.hero {
+		--thisHeroView: 1366px;
+	}
+}
+@media screen and (min-width:1020px) {
+	main>div.heroLayout>div.hero {
+		--thisHeroView: 100%;
+	}
+}
+@media screen and (max-width:1020px) {
+	main>div.heroLayout>div.hero {
+		--thisHeroView: var(--nowViewAreaBODY);
+	}
+}
+/*****************************************/
+main>div.heroLayout>div.hero {
+	/* hero表示枠 */
+	//width: 1366px;
+	
+	//max-width: var(--nowViewAreaMAX);
+	//width: 100%;
+	//min-width: 1020px;
+	
+	width: var(--thisHeroView);
+	height: 545px;
+	/* margin-bottomは160だが、サイト内遷移のためheader分80pxの幅を確保する */
+	margin: 80px auto 80px;
+	
+	position: relative;
+	overflow: hidden; /* imgをトリミング */
+
+	/**border: 2px solid blue; /* 表示確認用 */
+}
+/*****************************************/
+main>div.heroLayout>div.hero>img {
+	/* hero本体img */
+	width: 1366px; height: auto;
+	
+	//left: 0px;
+	left: calc( (var(--thisHeroView) - var(--nowViewAreaMAX)) /2 );
+	top: -182px;
+	position: absolute;
+
+	z-index: -1;
+	
+	/**** hero アニメ ****/
+	transform-origin: center;
+	animation-name: heroOpenAnime;
+	animation-duration: 2.5s;
+	animation-timing-function: ease-out;
+	animation-iteration-count: 1;
+	animation-delay: 0s;
+	//animation-fill-mode: forwards;
+}
+@keyframes heroOpenAnime {
+	0% {
+		filter: blur(5px) brightness(200%);
+		transform: scale(1.05);
+	}
+	60% {
+		filter: blur(0px) brightness(100%);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+/*** 共通設定 ***/
+/*** サイト内遷移用 共通 **/
+main>div.pages {
+	/* サイト内遷移用のマーカーの器 */
+}
+main>div.pages:before {
+	/* サイト内遷移用のマーカー */
+	display: block;
+	content: "";
+	height: 1px;
+	margin-bottom: 80px;
+	/**background-color: #faa; /* 表示確認用 */
+}/**/
+/*** section 共通 ***/
+main>section {
+	width: 100%; /**********************************/
+	margin: 0px auto 160px;
+}
+/** section内layout共通設定 **/
+main>section>div.layout {
+	/* section内の中央に浮かす部分 */
+	//width: 1020px;
+	width: var(--nowViewAreaBODY);
+	margin: 0px auto;
+	/**background-color: green; /* 表示確認用 */
+}
+/**/
+/*** h2共通 ***/
+main>section>div>h2 {
+	margin-bottom: 48px;
+}
+main>section>div>h2>p.title {
+	color: var(--thisBlack);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 42px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	
+	text-transform: uppercase;
+	
+	margin-bottom: 16px;
+}
+main>section>div>h2>p.subTitle {
+	color: var(--thisBlue);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+}
+main>section>div>h2>p.subTitle::before,
+main>section>div>h2>p.subTitle::after {
+	content:"　　　　";
+	text-decoration: line-through;
+	text-decoration-color: var(--thisBlue);
+	text-decoration-style: solid;
+	text-decoration-thickness: 2px;
+	/**text-decoration: line-through solid var(--thisBlue) 2px; /*safari不可*/
+	
+	margin: 0 8px;
+}
+/*** h2共通 ***/
+/*** arrow共通 ***/
+span.arrowBox {
+	display: inline-block;
+	margin: 0px;
+	/** background-color: red; /* 表示確認用 */
+
+	position: relative;
+
+	overflow: hidden;
+
+	/* 設定まとめ */
+	--arrowH: 100px;
+	--arrowColor: blue;
+	--arrowRotate: 0deg;
+	
+	/* 反映 */
+	width: calc( var(--arrowH) / 2 );
+	height: calc( var(--arrowH) );
+	transform: rotate( var(--arrowRotate) );
+}
+span.arrowBox::after {
+	display: inline-block;
+	content: "";
+	width: calc( var(--arrowH) / 2 * 1.4142);
+	height: calc( var(--arrowH) / 2 * 1.4142);
+	background-color: var(--arrowColor);
+
+	position: absolute;
+	left: 0px; top: 0px;
+
+	transform-origin: left top;
+	transform: rotate(45deg);
+}
+/*** arrow共通 ***/
+/*** cont-1(concept) ***/
+main>section.cont-1{
+}
+section.cont-1>div>h3 {
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 28px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	
+	margin-bottom: 24px;
+}
+section.cont-1>div>p {
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	line-height: 2.0em;
+	text-align: left;
+}
+
+/*** cont-1(concept) h3-開始anime ***/
+section.cont-1>div>h3>span {
+	/* 初期値 */
+	position:relative;
+	opacity: 0;
+	/* anime用設定 */
+	--animeSET: wordsAnime 2.5s ease-in-out forwards;
+}
+section.cont-1>div>h3>:nth-child(1) {
+	animation: var(--animeSET) 0s;
+}
+section.cont-1>div>h3>:nth-child(2) {
+	animation: var(--animeSET) calc(0.15s * 1);
+}
+section.cont-1>div>h3>:nth-child(3) {
+	animation: var(--animeSET) calc(0.15s * 2 - 0.01s);
+}
+section.cont-1>div>h3>:nth-child(4) {
+	animation: var(--animeSET) calc(0.15s * 3 - 0.02s);
+}
+section.cont-1>div>h3>:nth-child(5) {
+	animation: var(--animeSET) calc(0.15s * 4 - 0.03s);
+}
+section.cont-1>div>h3>:nth-child(6) {
+	animation: var(--animeSET) calc(0.15s * 5 - 0.04s);
+}
+section.cont-1>div>h3>:nth-child(7) {
+	animation: var(--animeSET) calc(0.15s * 6 - 0.05s);
+}
+section.cont-1>div>h3>:nth-child(8) {
+	animation: var(--animeSET) calc(0.15s * 7 - 0.06s);
+}
+section.cont-1>div>h3>:nth-child(9) {
+	animation: var(--animeSET) calc(0.15s * 8 - 0.07s);
+}
+section.cont-1>div>h3>:nth-child(10) {
+	animation: var(--animeSET) calc(0.15s * 9 - 0.08s);
+}
+section.cont-1>div>h3>:nth-child(11) {
+	animation: var(--animeSET) calc(0.15s * 10 - 0.09s);
+}
+@keyframes wordsAnime {
+	0% {opacity:0.1; top:-25px; left:50px;}
+	40% {opacity:1; top:7px;}
+	80% {opacity:1; top:-5px;}
+	100% {opacity:1; top:0px; left:0px;}
+}
+/*** cont-1(concept) p-開始anime ***/
+section.cont-1>div>p {
+	/* 初期値 */
+	position:relative;
+	opacity: 0;
+	/* anime 設定 */
+	animation: conceptMesAnime 2s ease-out 1.5s;
+	animation-fill-mode: forwards;
+}
+@keyframes conceptMesAnime {
+	0% {opacity:0.1; top:25px;}
+	100% {opacity:1; top:0px;}
+}
+
+/*** cont-2(service) ***/
+main>section.cont-2{
+	position: relative;
+}
+section.cont-2>div>ul {
+	display: flex;
+	justify-content: space-between;
+}
+section.cont-2>div>ul>li {
+	width: 300px;
+	opacity:0;
+}
+section.cont-2>div>ul>li>img {
+	width: 300px; height: auto;
+	margin-bottom: 16px;
+}
+section.cont-2>div>ul>li>h3 {
+	color: var(--thisBlack);
+	font-family: 'Noto Serif JP', serif;
+	font-weight: 500;
+	font-size: 24px;
+	letter-spacing: 0.1em;
+	
+	margin-bottom: 16px;
+}
+section.cont-2>div>ul>li>p {
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-weight: 400;
+	font-size: 16px;
+	letter-spacing: 0.1em;
+	line-height: 1.5em;
+	text-align: left;
+	
+	margin-bottom: 16px;
+}
+section.cont-2>div>ul>li>p.moreLink {
+	/**background-color: gray; /* 表示確認用 */
+	/**border: 2px solid yellow; /* 表示確認用 */
+	text-align: right;
+	padding-bottom: 5px;
+	padding-right: 5px;
+	
+	height: 22px;
+	
+	position: relative;
+	overflow: hidden;
+	
+	z-index: 1;
+}
+section.cont-2>div>ul>li>p.moreLink>a {
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 16px;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	
+	position: relative;
+	bottom: 5px;
+	
+	transition: color 0.3s ease-in-out 0.3s;
+}
+section.cont-2>div>ul>li>p.moreLink>a>span.arrowBox {
+	/* arrow設定まとめ */
+	--arrowH: 10px;
+	--arrowColor: var(--thisBlack);
+	--arrowRotate: 0deg;
+	
+	vertical-align: middle;
+	margin-left: 4px;
+}
+section.cont-2>div>ul>li>p.moreLink>a>span.arrowBox::after {
+	transition: background-color 0.3s ease-in-out 0.7s;
+}
+section.cont-2>div>ul>li>p.moreLink::after,
+section.cont-2>div>ul>li>p.moreLink::before {
+	display: inline-block;
+	content: "";
+	width: 10px; height: 10px;
+	border-radius: 50%;
+	
+	position: absolute;
+	right: 33px; top: 5px;
+	
+	z-index: -1;
+}
+/*** anme 設定 ***/
+section.cont-2>div>ul>li>p.moreLink::after {
+	/* 初期値 */
+	background-color: var(--thisBlack);
+	width: 10px; height: 10px;
+	transform: scale(0);
+	opacity: 0.3;
+	/* 戻りanime設定 */
+	transition: all 0.6s ease-in-out 0.1s;
+}
+section.cont-2>div>ul>li>p.moreLink::before {
+	/* 初期値 */
+	border: 5px solid var(--thisBlack);
+	opacity: 0;
+	/* 戻りanime設定 */
+	transition: all 0.6s ease-in-out 0s;
+}
+
+/** moreのhover **/
+section.cont-2>div>ul>li>p.moreLink>a:hover {
+	/* 変更値 */
+	color: var(--thisWhite);
+	/* anime 設定 */
+	transition: color 0.5s ease-in-out 0s;
+}
+section.cont-2>div>ul>li>p.moreLink>a:hover>span.arrowBox {
+	/* 変更値 */
+	--arrowColor: var(--thisWhite);
+}
+section.cont-2>div>ul>li>p.moreLink>a:hover>span.arrowBox::after {
+	/* anime 設定 */
+	transition: background-color 0.5s ease-in-out 0s;
+}
+section.cont-2>div>ul>li>p.moreLink:has(>a:hover)::after {
+	/* 変更値 */
+	transform: scale(55);
+	opacity: 1;
+	/* anime 設定 */
+	transition: all 1s ease-in-out 0.1s;
+}
+section.cont-2>div>ul>li>p.moreLink:has(>a:hover)::before {
+	/* 変更値 */
+	width: 600px; height: 600px;
+	right: calc(33px - 300px + 5px); top: calc(5px - 300px + 5px);
+	opacity: 1;
+	/* anime 設定 */
+	transition: all 1.2s ease-in-out 0s;
+}
+/*** cont-2(service) 開始anime***/
+section.cont-2>div>ul>:nth-child(1) {
+	animation: cont2Anime 3s ease-out 0s;
+	animation-fill-mode: forwards;
+}
+section.cont-2>div>ul>:nth-child(2) {
+	animation: cont2Anime 3s ease-out 0.4s;
+	animation-fill-mode: forwards;
+}
+section.cont-2>div>ul>:nth-child(3) {
+	animation: cont2Anime 3s ease-out 0.7s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes cont2Anime {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1.0;
+		transform: translateY(0px);
+	}
+}
+
+/*** cont-3(flow) ***/
+main>section.cont-3 {
+	//width: 1366px;
+	background-color: rgba(34,62,105,0.05);
+	
+	//padding: 48px 223px; /* フロートに変更につき不要 */
+	padding: 48px 0px;
+}
+@media screen and (min-width:768px) { /*** maxとminどちらが含むか…両方含みそう… ***/
+	main>section.cont-3 {
+		width: 100%;
+		min-width: var(--nowViewAreaBODY);
+	}
+	/* サイト内遷移時 中枠分のズラし設定 */
+	main>section.cont-2 {
+		margin-bottom: 128px;
+	}
+	main>div#FLOW:before {
+		margin-bottom: 32px;
+	}
+}
+/** subTitle部分の色変更 **/
+section.cont-3>div>h2>p.subTitle {
+	color: var(--thisRed);
+}
+section.cont-3>div>h2>p.subTitle::before,
+section.cont-3>div>h2>p.subTitle::after {
+	text-decoration-color: var(--thisRed);
+}
+/****/
+section.cont-3>div>ol {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+section.cont-3>div>ol>li {
+	color: var(--thisWhite);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 28px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+	
+	/** 長丸 **/
+	width: 60px; height: 280px;
+	background-color: var(--thisBlack);
+	padding: 30px 16px;
+	border-radius: 30px;
+	
+	/** 天地中央 **/
+	display: flex;
+	align-items: center;
+}
+section.cont-3>div>ol>span.arrowBox{
+	/* arrow設定 */
+	--arrowH: 60px;
+	--arrowColor: var(--thisRed);
+	--arrowRotate: 0deg;
+}
+section.cont-3>div>ol>span:nth-child(2) {
+	opacity:  60%;
+}
+section.cont-3>div>ol>span:nth-child(4) {
+	opacity:  70%;
+}
+section.cont-3>div>ol>span:nth-child(6) {
+	opacity:  80%;
+}
+section.cont-3>div>ol>span:nth-child(8) {
+	opacity:  90%;
+}
+/***  ***/
+/*** cont-4(Q&A) ***/
+section.cont-4 {
+}
+section.cont-4>div>dl {
+	text-align: left;
+}
+section.cont-4>div>dl>dt,
+section.cont-4>div>dl>dd{
+	min-height: 52px;/** 各表示の高さが先頭の丸より狭くならない **/
+	margin-bottom: 16px;
+	position: relative;
+	
+	/**background-color: pink; /* 表示確認用 */
+}
+section.cont-4>div>dl>dt>span+span,
+section.cont-4>div>dl>dd>span+span {
+	display: inline-block;
+	
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	color: var(--thisBlack);
+	letter-spacing: 0.1em;
+	line-height: 1.5em;
+	
+	width: 960px;
+	vertical-align: top; /* てっぺん揃えにして… */
+	transform: translateY(0.5em); /* 文字半分ズラす */
+	margin-bottom: 0.2em;
+	
+	/**background-color: yellow; /* 表示確認用 */
+}
+section.cont-4>div>dl>dd {
+	margin-bottom: 48px;
+	/**background-color: blue; /* 表示確認用 */
+}
+/*** QAアイコン ***/
+section.cont-4>div>dl>dt>span.question,
+section.cont-4>div>dl>dd>span.answer {
+	/** QAアイコン文字 共通設定 **/
+	display: inline-block;
+	
+	color: var(--thisWhite);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 34px;
+	font-weight: 700;
+	text-align: center;
+	
+	width: 52px; height: 52px;
+	margin: 0px;
+	margin-right: 8px;
+	
+	position: relative;
+	left: 0px; top: 0px;
+	/**background-color: red; /* 表示確認用 */
+	
+	z-index: 1;
+}
+section.cont-4>div>dl>dt>span.question::before,
+section.cont-4>div>dl>dd>span.answer::before {
+	/** QAアイコンベース 共通設定(Qベースで設定) **/
+	display: inline-block;
+	
+	content: "";
+	background-color: var(--thisBlack);
+	width: 52px; height: 52px;
+	border-radius: 50%;
+	
+	position: absolute;
+	left: -2px; top: -2px; /* 文字合わせでベースをズラす */
+	
+	z-index: -1;
+}
+section.cont-4>div>dl>dd>span.answer::before {
+	/** A対応 **/
+	background-color: var(--thisRed);
+}
+/***  ***/
+/*** cont-5(contact) ***/
+/** subTitleの色替え **/
+section.cont-5>div>h2>p.subTitle {
+	color: var(--thisBlack);
+}
+section.cont-5>div>h2>p.subTitle::before,
+section.cont-5>div>h2>p.subTitle::after {
+	text-decoration-color: var(--thisBlack);
+}
+/** **/
+main>section.cont-5 {
+	background-color: rgba(34,62,105,0.15);
+	padding: 48px 0px;
+}
+@media screen and (min-width:768px) {
+	main>section.cont-5 {
+		width: 100%;
+		min-width: var(--nowViewAreaBODY);
+	}
+	/* 中枠用ズラし設定 */
+	main>section.cont-4 {
+		margin-bottom: 128px;
+	}
+	main>div#CONTACT:before {
+		margin-bottom: 32px;
+	}
+	main>section.cont-5 {
+		margin-bottom: 282px;
+	}
+}
+section.cont-5 form {
+	background-color: rgba(255,255,255,0.5);
+	width: var(--nowViewAreaBODY);
+	padding: 48px 0px;
+	
+}
+section.cont-5 form>p {
+	/*** 各フォームの表示枠 共通設定 ***/
+	text-align: left;
+	height: 52px;
+	margin-bottom: 24px;
+	
+	position: relative;
+	
+	/**border: 1px solid yellow; /*表示確認用*/
+	
+	/*** 各設定値 ***/
+	--leftSpaceForInput: 332px;
+	--input1Height: 48px;
+	--inputWidth1: 332px;
+	--inputWidth2: 222px;
+	--inputWidth3: 664px;
+	--inputTextSize: 24px;
+	--inputPadding: 10px;
+	--validBase: 20px;
+}
+section.cont-5 form>p:has(input[name="address1"]) {
+	/** 住所部分の表示枠を広げる **/
+	height: 128px;
+}
+section.cont-5 form>p:has(textarea) {
+	/** テキストエリア表示枠 個別設定 **/
+	height: 208px;
+	margin-bottom: 48px;
+}
+/*** 左側 ***/
+section.cont-5 form>p>span.Ltxt,
+section.cont-5 form>p>label>span.Ltxt {
+	/** 左側(見出し)テキスト共通設定 **/
+	display: inline-block;
+	
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	
+	position: absolute;
+	right: 766px; top: 13px;
+	
+	/**border: 2px solid red; /*表示確認用*/
+}
+/*** for 必須マーク ***/
+section.cont-5 span.hissu {
+	/** 必須 文字 **/
+	display: inline;
+	
+	color: var(--thisWhite);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	
+	position: absolute;
+	left: calc(262px - (39px - 58px) / 2 + 2px); top: calc(13px + 2px);
+	
+	z-index:1;
+	
+	/**border: 2px solid yellow; /*表示確認用*/
+}
+section.cont-5 span.hissu::after {
+	/** 必須 ベース **/
+	display: inline-block;
+	content: "";
+	width: 58px; height:24px;
+	background-color: var(--thisRed);
+	border-radius: 8px;
+
+	position: absolute;
+	left: calc( (39px - 58px) / 2 - 2px); top: -2px;
+	
+	z-index: -1;
+}
+/*** 右側 ***/
+section.cont-5 span.formMatome span.Rtxt {
+	/** 右側(補助)テキスト共通設定 **/
+	color: var(--thisBlack);
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size: 20px;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	
+	/**border: 2px solid blue; /*表示確認用*/
+}
+section.cont-5 span.formMatome span.Rtxt:has(~input[name="address1"]) {
+	/** 郵便マーク個別指定 **/
+	margin-right: 4px;
+	vertical-align: 0.5em;
+	position: relative;
+	top: 0px;
+}
+/*** ラジオボタンの設定 ***/
+section.cont-5 span.oriRadio {
+	/** オリジナルラジオボタン **/
+	display: inline-block;
+	background-color: var(--thisWhite);
+	width: 24px; height: 24px;
+	border-radius: 50%;
+	margin-right: 4px;
+}
+section.cont-5 input[type="radio"] {
+	/** 本物のラジオボタンを隠す **/
+	//display: None;
+	position: absolute;
+	//visibility: hidden;
+	opacity: 0;
+}
+/*** ラジオボタンON用anime ***/
+section.cont-5 span.oriRadio::after {
+	/** 中黒 初期値 **/
+	display: block;
+	content: "";
+	width: 14px; height: 14px;
+	border-radius: 50%;
+	background-color: var(--thisRed);
+	
+	position: absolute;
+	left: 5px; top: 5px;
+	
+	transform-origin: center;
+	transform: scale(1.0);
+	opacity:0;
+}
+section.cont-5 span.oriRadio::before {
+	/** 輪郭 初期値 **/
+	display: block;
+	content: "";
+	width: 24px; height: 24px;
+	border-radius: 50%;
+	border: 3px double var(--thisRed);
+	
+	position: absolute;
+	left:0px; top:0px;
+
+	transform-origin: center;
+	transform: scale(1.0);
+	opacity: 0;
+}
+section.cont-5 input#shiryo:checked ~span.oriRadio::after,
+section.cont-5 input#sodan:checked ~span.oriRadio::after {
+	/** checked時の中黒 anime **/
+	animation: radioAnime 1s linear 0.3s 1;
+	animation-fill-mode: forwards;
+}
+section.cont-5 input#shiryo:checked ~span.oriRadio::before,
+section.cont-5 input#sodan:checked ~span.oriRadio::before {
+	/** checked時の波紋 anime **/
+	animation: radioRippleAnime 0.8s ease-out calc(0.6s + 0.3s) 1;
+}
+section.cont-5 input#shiryo:checked ~span.oriRadio,
+section.cont-5 input#sodan:checked ~span.oriRadio {
+	/** checked時の輪郭 anime **/
+	//border: 2px solid var(--thisRed);
+	animation: radioDrawCircle 0.2s ease-in 0s 1;
+	animation-fill-mode: forwards;
+}
+
+@keyframes radioAnime {
+	/** checked時の中黒 anime **/
+	0% {
+		opacity: 0.0;
+		transform-origin: center;
+		transform: scale(4.0);
+	}
+	15% {transform: scale(2.0);}
+	30%,50% {
+		transform: scale(0.7);
+	}
+	40% {
+		opacity: 0.6;
+		transform: scale(0.5);
+	}
+	75%,85% {transform: scale(1.3);}
+	80% {
+		opacity: 1.0;
+		transform: scale(1.5);
+	}
+	95% {transform: scale(0.8);}
+	100% {
+		opacity: 1.0;
+		transform: scale(1.0);
+	}
+}
+@keyframes radioRippleAnime {
+	/** checked時の波紋 anime **/
+	0% {
+		border: 5px solid var(--thisRed);
+		opacity: 0.1;
+		transform: scale(0.6);
+	}
+	20% {
+		opacity: 1.0;
+		transform: scale(1.0);
+	}
+	100% {
+		border: 0px dotted var(--thisRed);
+		opacity: 0.0;
+		transform: scale(3.0);
+	}
+}
+@keyframes radioDrawCircle {
+	/** checked時の輪郭 anime **/
+	0% {
+		border-bottom: 2px solid var(--thisRed);
+		border-left: 2px solid white;
+		border-top: 2px solid white;
+		border-right: 2px solid white;
+		
+	}
+	33% {
+		border-bottom: 2px solid var(--thisRed);
+		border-left: 2px solid var(--thisRed);
+		border-top: 2px solid white;
+		border-right: 2px solid white;
+	}
+	66% {
+		border-bottom: 2px solid var(--thisRed);
+		border-left: 2px solid var(--thisRed);
+		border-top: 2px solid var(--thisRed);
+		border-right: 2px solid white;
+	}
+	100% {
+		border-bottom: 2px solid var(--thisRed);
+		border-left: 2px solid var(--thisRed);
+		border-top: 2px solid var(--thisRed);
+		border-right: 2px solid var(--thisRed);
+	}
+}
+/*************************/
+section.cont-5 label[for="shiryo"],
+section.cont-5 label[for="sodan"] {
+	/** ラジオボタン毎のまとまり **/
+	display: inline-flex;
+	align-items: center; /* ボタンと文字を天地中央揃えに */
+	margin-right:40px;
+	position: relative;
+	top: 0.75em; /* 左テキストとの行揃え */
+	
+	/**background-color: red; /* 表示確認用 */
+}
+section.cont-5 form>p span.formMatome {
+	/** 複数フォームを一塊に **/
+	display: block;
+	/*width: 100%; height: auto;*/
+	/*width: 664px; height: 100%;*/
+	width: var(--inputWidth3); height: 100%;
+	
+	position: relative;
+	left: var(--leftSpaceForInput); top: 0px; /********************************/
+	
+	/**border: 2px solid #aaa; /* 表示確認用 */
+}
+/*** 入力エリア位置設定 ***/
+section.cont-5 form>p>label>input,
+section.cont-5 form>p>label>span>input,
+section.cont-5 form>p>label>textarea {
+	/** 入力エリアの共通設定 **/
+	font-size: var(--inputTextSize);
+	text-align: left;
+	
+	width: var(--inputWidth3);
+	//height: 52px; /* とりあえず一行分のフル設定 */
+	
+	background-color: var(--thisWhite);
+	padding: var(--inputPadding);
+	
+	position: relative;
+	
+	/**border: 2px solid orange; /* 表示確認用 */
+}
+section.cont-5 form>p>label>input,
+section.cont-5 form>p>label>span>input {
+	/** valid表示用に右端を空ける **/
+	padding-right: calc(var(--inputPadding) + var(--validBase) + var(--inputPadding));
+}
+/*** 入力エリア設定 ***/
+section.cont-5 input[name="yourName"],
+section.cont-5 input[name="furigana"],
+section.cont-5 input[name="phonNumber"] {
+	width: var(--inputWidth1);
+	left: var(--leftSpaceForInput);
+}
+section.cont-5 input[name="address1"] {
+	width: var(--inputWidth2);
+	margin-bottom: 24px;
+}
+section.cont-5 input[name="address2"] {
+	//bottom: 0px;
+}
+section.cont-5 input[name="yourMail"],
+section.cont-5 input[name="checkYourMail"] {
+	left: var(--leftSpaceForInput);
+}
+section.cont-5 textarea {
+	height: 208px;
+	left: var(--leftSpaceForInput);
+}
+/** 末端 submit設定 **/
+section.cont-5 form>div:has(>input[type="submit"]){
+	/* submit表示枠個別設定 */
+	width: 100%;
+	height: var(--thisBtnH);
+	margin-bottom: 0px;
+	position: relative;
+	
+	/* ボタンサイズ設定 */
+	--thisBtnW: 300px;
+	--thisBtnH: 68px;
+	
+	/**background-color: blue; /* 表示確認用 */
+}
+section.cont-5 input[type="submit"] { /***********************************************/
+	/*** submit本体 ***/
+	display: block;
+	width: var(--thisBtnW);
+	height: var(--thisBtnH);
+	margin: 0 auto; 
+	position: relative;
+	
+	/* テキスト非表示 */
+	color: rgba(0,0,0,0); /*****消していいのか?*****/
+
+	/**background-color: red; opacity:0.3;/* 表示確認用 */
+	
+	z-index: 10;
+}
+section.cont-5 div.submitTextGrupe {
+	display: flex;
+	align-items: center;
+	
+	/*width: 300px; height: 68px;*/
+	width: var(--thisBtnW);
+	height: var(--thisBtnH);
+	padding: 0 42px;
+	text-align: center;
+
+	position: absolute;
+	left: calc((var(--nowViewAreaBODY) - var(--thisBtnW)) / 2); /* ボタンのセンタリング */
+	top: 0px;
+	background-color: rgba(51,51,51,100%);
+	z-index: 2;
+}
+section.cont-5 div.submitTextGrupe>span.submitText {
+	display: inline-block;
+	
+	color: var(--thisWhite);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 20px;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	
+	position: relative;
+	transform-origin: center;
+	transform: translateY(-2px);
+	
+	/**background-color: red; /* 表示確認用 */
+}
+section.cont-5 input[type="submit"]~div.submitTextGrupe>span.arrowBox {
+	/* arrow設定まとめ */
+	--arrowH: 20px;
+	--arrowColor: var(--thisWhite);
+	--arrowRotate: 0deg;
+
+	margin-left: 8px;
+}
+/** inputのfocus時 **/
+section.cont-5 input:not([type="submit"]):focus,
+section.cont-5 textarea:focus {
+	//outline: 3px var(--thisRed) solid;
+	border-radius: 5px;
+	
+	animation: focusDrawRect 0.8s linear 0s 1;
+	animation-fill-mode: both;
+	
+	/* focus時の設定 */
+	--thisBorderWidth1: 1px;
+	--thisBorderWidth2: 2px;
+	--thisBorderWidth3: 3px;
+	--thisBorderWidth4: 4px;
+}
+section.cont-5 span.formMatome span.Rtxt:has(~input[name="address1"]:focus) {
+	/** focus時のズレ打消し */
+	top: -4px;
+	transition: top 0.45s linear 0s;
+}
+@keyframes focusDrawRect {
+	/**** inputの枠表示Anime ****/
+	0% {
+		border-left: var(--thisBorderWidth1) solid white;
+		border-top: var(--thisBorderWidth1) solid white;
+		border-right: var(--thisBorderWidth1) solid white;
+		border-bottom: var(--thisBorderWidth1) solid white;
+		top: -2px;
+	}
+	10% {
+		border-left: var(--thisBorderWidth2) solid var(--thisRed);
+		border-top: var(--thisBorderWidth2) solid white;
+		border-right: var(--thisBorderWidth2) solid white;
+		border-bottom: var(--thisBorderWidth2) solid white;
+		top: -2px;
+	}
+	25% {
+		border-left: var(--thisBorderWidth3) solid var(--thisRed);
+		border-top: var(--thisBorderWidth3) solid var(--thisRed);
+		border-right: var(--thisBorderWidth3) solid white;
+		border-bottom: var(--thisBorderWidth3) solid white;
+		top: -3px;
+	}
+	35% {
+		border-left: var(--thisBorderWidth4) solid var(--thisRed);
+		border-top: var(--thisBorderWidth4) solid var(--thisRed);
+		border-right: var(--thisBorderWidth4) solid var(--thisRed);
+		border-bottom: var(--thisBorderWidth4) solid white;
+		top: -4px;
+	}
+	45%,50% {
+		border-left: var(--thisBorderWidth4) solid var(--thisRed);
+		border-top: var(--thisBorderWidth4) solid var(--thisRed);
+		border-right: var(--thisBorderWidth4) solid var(--thisRed);
+		border-bottom: var(--thisBorderWidth4) solid var(--thisRed);
+		filter: drop-shadow(0px 0px 0px var(--thisRed));
+	}
+	98% {
+		/* 背景に馴染ませる */
+		filter: drop-shadow(0px 0px 10px rgb(240,241,244));
+	}
+	100% {
+		border-left: var(--thisBorderWidth4) solid var(--thisRed);
+		border-top: var(--thisBorderWidth4) solid var(--thisRed);
+		border-right: var(--thisBorderWidth4) solid var(--thisRed);
+		border-bottom: var(--thisBorderWidth4) solid var(--thisRed);
+		top: -4px;
+	}
+	
+}
+
+/*** 必須項目(valid)対応 ***/
+section.cont-5 span.validCheck {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-around;
+
+	width: var(--validBase);
+	height: var(--validBase);
+	border-radius: 25%;
+
+	position: absolute;
+	
+	visibility: visible;
+	/**background-color: blue; /* 表示確認用 */
+}
+/*** validCheckの表示位置 ***/
+section.cont-5 span.formMatome:has(input[type="radio"])>span.validCheck {
+	--thisX: 7px;
+	--thisY: calc((1px + var(--input1Height) - var(--validBase)) / 2);
+	transform: translateX(var(--thisX)) translateY(var(--thisY));
+}
+section.cont-5 input[name="address1"]+span.validCheck,
+section.cont-5 input[name="address2"]+span.validCheck {
+	--thisX: calc(-1 * (var(--validBase) + var(--inputPadding)));
+	--thisY: calc((var(--input1Height) - var(--validBase)) / 2);
+	transform: translateX(var(--thisX)) translateY(var(--thisY));
+}
+section.cont-5 input[name="yourName"]+span.validCheck,
+section.cont-5 input[name="furigana"]+span.validCheck,
+section.cont-5 input[name="phonNumber"]+span.validCheck,
+section.cont-5 input[name="yourMail"]+span.validCheck,
+section.cont-5 input[name="checkYourMail"]+span.validCheck {
+	--thisX: calc(var(--leftSpaceForInput) - (var(--validBase) + var(--inputPadding)));
+	--thisY: calc((var(--input1Height) - var(--validBase)) / 2);
+	transform: translateX(var(--thisX)) translateY(var(--thisY));
+}
+/*** validCheck NG ***/
+section.cont-5 label:has(input:required:user-invalid)+span.validCheck,
+section.cont-5 input:required:user-invalid+span.validCheck {
+	visibility: visible;
+	background-color: var(--thisRed);
+	
+	animation: validAnime 0.3s ease 0s 1 both;
+}
+section.cont-5 label:has(input:required:user-invalid)+span.validCheck::after,
+section.cont-5 label:has(input:required:user-invalid)+span.validCheck::before,
+section.cont-5 input:required:user-invalid+span.validCheck::after,
+section.cont-5 input:required:user-invalid+span.validCheck::before {
+	display: inline-block;
+	content: "";
+	width: 4px; height: 15px;
+	background-color: var(--thisWhite);
+	border-radius: 2px;
+
+	position: absolute;
+}
+section.cont-5 label:has(input:required:user-invalid)+span.validCheck::after,
+section.cont-5 input:required:user-invalid+span.validCheck::after {
+	transform: rotate(45deg);
+}
+section.cont-5 label:has(input:required:user-invalid)+span.validCheck::before,
+section.cont-5 input:required:user-invalid+span.validCheck::before {
+	transform: rotate(-45deg);
+}/**/
+/*** validCheck OK ***/
+section.cont-5 label:has(input:required:user-valid)+span.validCheck,
+section.cont-5 input:required:user-valid+span.validCheck {
+	visibility: visible;
+	background-color: var(--thisBlue);
+	
+	animation: validAnime 0.3s ease 0s 1 both;
+}
+section.cont-5 label:has(input:required:user-valid)+span.validCheck::before,
+section.cont-5 input:required:user-valid+span.validCheck::before {
+	display: inline-block;
+	content: "";
+	width: 16px; height: 8px;
+	border-left: 4px solid var(--thisWhite);
+	border-bottom: 4px solid var(--thisWhite);
+	border-radius: 2px;
+
+	position: absolute;
+
+	transform: translateY(-1px) rotate(-35deg);
+}/**/
+@keyframes validAnime {
+	/**** validCheckの表示Anime ****/
+	0% { transform: 
+			translateX(var(--thisX)) translateY(var(--thisY))
+			scale(0.1); }
+	80% { transform:
+			translateX(var(--thisX)) translateY(var(--thisY))
+			scale(1.2); }
+	100% { transform:
+			translateX(var(--thisX)) translateY(var(--thisY))
+			scale(1); }
+}
+/**/
+/*** submitのhover ***/
+section.cont-5 div.submitTextGrupe {
+	/* 初期値 */
+	background-color: rgba(51,51,51,100%);
+	/* アニメ設定 */
+	transition: background-color 0.5s ease-in 0s;
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe {
+	/* 変更値 */
+	background-color: rgba(51,51,51,0%);
+}
+section.cont-5 input[type="submit"]:hover ~span.gunyu {
+	animation: submitAnime 19.0s linear 0s infinite;
+}
+section.cont-5 input[type="submit"]:hover ~span.gunyu::before {
+	animation: submitAnime 13.0s linear 0s reverse infinite;
+}
+section.cont-5 input[type="submit"]:hover ~span.gunyu::after {
+	animation: submitAnime 17.0s ease 0s infinite;
+}
+/* gunyuの設定 */
+section.cont-5 span.gunyu {
+	display:block;
+	width: 300px; height: 68px;
+	background-color: rgba(183,27,38,50%);
+	position:absolute;
+	left: calc((1020px - 300px) / 2);
+	top: 0px;
+
+	transform-origin: center;
+	transform: scale(0.98,0.9);
+
+	z-index: 1;
+	
+	animation: submitAnime paused;
+}
+section.cont-5 span.gunyu::after {
+	content: "";
+	display:block;
+	width: 300px; height: 68px;
+	background-color: rgba(183,27,38,50%);
+	position:absolute;
+	left: 0px; top: 0px;
+	
+	animation: submitAnime pused;
+}
+section.cont-5 span.gunyu::before {
+	content: "";
+	display:block;
+	width: 300px; height: 68px;
+	background-color: rgba(183,27,38,50%);
+	position:absolute;
+	left: 0px; top: 0px;
+	transform-origin: center;
+	transform: scaleX(-1);
+	
+	animation: submitAnime paused;
+}
+
+@keyframes submitAnime {
+	/* gunyuのAnime */
+	0% { border-radius: 60% 100% 20px 40px; }
+	25% { border-radius: 10% 60% 30px 20px; }
+	50% { border-radius: 100% 30% 40px 10px; }
+	75% { border-radius: 30% 10% 10px 30px; }
+	100% { border-radius: 60% 100% 20px 40px; }
+}
+/* submitのfocus用設定 */
+section.cont-5 div.submitTextGrupe>span { /***************************/
+	--fcsTime: 3s;
+}
+/* submitのhover 文字部分 */
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(10) {
+	animation: submitArrowAnime var(--fcsTime) linear infinite 0s;
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(9) {
+	animation: submitTextAnime var(--fcsTime) linear infinite 0s;
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(8) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 1);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(7) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 2);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(6) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 3);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(5) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 4);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(4) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 5);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(3) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 6);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(2) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 7);
+}
+section.cont-5 input[type="submit"]:hover ~div.submitTextGrupe>:nth-child(1) {
+	animation: submitTextAnime var(--fcsTime) linear infinite calc(0.3s * 8);
+}
+@keyframes submitTextAnime {
+	/* submitの文字Anime hover */
+	0% { transform: translateY(-2px) rotate(0deg); }
+	
+	15% { transform: translateY(calc(-1 * (2px + 6px))) skewY(-5deg); }
+	25% { transform: translateY(calc(-1 * (2px + 7px))) skewY(0deg); }
+	35% { transform: translateY(calc(-1 * (2px + 6px))) skewY(5deg); }
+	
+	50% { transform: translateY(-2px) rotate(0deg); }
+	
+	70% { transform: translateY(calc(-1 * (2px - 6px))) skewY(5deg); }
+	75% { transform: translateY(calc(-1 * (2px - 7px))) skewY(0deg); }
+	80% { transform: translateY(calc(-1 * (2px - 6px))) skewY(-5deg); }
+	
+	100% { transform: translateY(-2px) rotate(0deg); }
+}
+@keyframes submitArrowAnime {
+	/* submitのarrow Anime hover */
+	0% { transform-origin: right center; transform: rotate(0deg); }
+	
+	15% { transform-origin: right center; transform: skewY(25deg); }
+	25% { transform-origin: right center; transform: skewY(30deg); }
+	35% { transform-origin: right center; transform: skewY(25deg); }
+	
+	50% { transform-origin: right center; transform: rotate(0deg); }
+	
+	70% { transform-origin: right center; transform: skewY(-25deg); }
+	75% { transform-origin: right center; transform: skewY(-30deg); }
+	80% { transform-origin: right center; transform: skewY(-25deg); }
+	
+	100% { transform: rotate(0deg); }
+}
+/* submitのtextの設定 */
+section.cont-5 div.submitTextGrupe>:nth-child(1) {
+	--hankei: calc(-1 * var(--hankeiBase) * 5);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(2) {
+	--hankei: calc(-1 * var(--hankeiBase) * 4);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(3) {
+	--hankei: calc(-1 * var(--hankeiBase) * 3);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(4) {
+	--hankei: calc(-1 * var(--hankeiBase) * 2);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(5) {
+	--hankei: calc(1 * var(--hankeiBase) * 1);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(6) {
+	--hankei: calc(1 * var(--hankeiBase) * 1);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(7) {
+	--hankei: calc(1 * var(--hankeiBase) * 2);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(8) {
+	--hankei: calc(1 * var(--hankeiBase) * 3);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(9) {
+	--hankei: calc(1 * var(--hankeiBase) * 4);
+}
+section.cont-5 div.submitTextGrupe>:nth-child(10) {
+	--hankei: calc(1 * var(--hankeiBase) * 5);
+}
+/* submitのactive用設定 */
+section.cont-5 div.submitTextGrupe>span { /**************************/
+	display: inline-block;
+	--hankeiBase: 20px;
+	--actTime: 3s;
+}
+/* submitのactive */
+section.cont-5 div.submitTextGrupe {
+	
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe {
+	background-color: rgba(34,62,105,100%);
+}
+section.cont-5 div.submitTextGrupe::after {
+	/* submitの波紋Anime用設定 */
+	display: block;
+	content: "";
+	border-radius: 50%;
+	position: absolute;
+
+	--thisButtonW: 300px;
+	--thisButtonH: 68px;
+	--hankeiStart: 10px;
+	--hankeiEnd: 400px;
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe::after {
+	animation: submitRipple 3.0s ease 1 0s both;
+}
+@keyframes submitRipple {
+	/* submitの波紋Anime active */
+	0% {
+		width: var(--hankeiStart); height: var(--hankeiStart);
+		border: 4px solid var(--thisWhite);
+		left: calc((var(--thisButtonW) - var(--hankeiStart)) / 2);
+		top: calc((var(--thisButtonH) - var(--hankeiStart)) /2);
+
+		opacity: 0.1;
+	}
+	40% {
+		opacity: 1.0;
+	}
+	95% {
+		width: var(--hankeiEnd); height: var(--hankeiEnd);
+		border: 2px dotted var(--thisWhite);
+		left: calc((var(--thisButtonW) - var(--hankeiEnd)) / 2);
+		top: calc((var(--thisButtonH) - var(--hankeiEnd)) /2);
+	}
+	100% {
+		border: 2px solid var(--thisWhite);
+
+		opacity: 0.0;
+	}
+}
+
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(1) {
+	animation: submitTextAnimeActiveL var(--actTime) ease-in-out 1 calc(0.2s * 4);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(2) {
+	animation: submitTextAnimeActiveL var(--actTime) ease-in-out 1 calc(0.2s * 3);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(3) {
+	animation: submitTextAnimeActiveL var(--actTime) ease-in-out 1 calc(0.2s * 2);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(4) {
+	animation: submitTextAnimeActiveL var(--actTime) ease-in-out 1 calc(0.2s * 1);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(5) {
+	animation: none;
+	animation: submitTextAnimeActiveL var(--actTime) ease-in-out 1 calc(0.2s * 0);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(6) {
+	animation: none;
+	animation: submitTextAnimeActiveR var(--actTime) ease-in-out 1 calc(0.2s * 0);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(7) {
+	animation: submitTextAnimeActiveR var(--actTime) ease-in-out 1 calc(0.2s * 1);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(8) {
+	animation: submitTextAnimeActiveR var(--actTime) ease-in-out 1 calc(0.2s * 2);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(9) {
+	animation: submitTextAnimeActiveR var(--actTime) ease-in-out 1 calc(0.2s * 3);
+}
+section.cont-5 input[type="submit"]:active ~div.submitTextGrupe>:nth-child(10) {
+	animation: submitTextAnimeActiveR var(--actTime) ease-in-out 1 calc(0.2s * 4);
+}
+@keyframes submitTextAnimeActiveR {
+	/* submitの文字Anime active */
+	0% {
+		opacity: 1.0; 
+		transform: 
+			translate(calc(-1 * var(--hankei)),2px)
+			rotate(0deg)
+			translate(var(--hankei),-2px)
+			scale(1.0);
+	}
+	50% {
+		poacity: 0.1;
+		transform:
+			translate(calc(-1 * var(--hankei)),2px)
+			rotate(360deg)
+			translate(var(--hankei),200px)
+			scale(3.0);
+	}
+	51% {
+		opacity: 0.0;
+		transform: 
+			translate(0,0)
+			rotate(0deg)
+			translate(0,-2px)
+			scale(1.0);
+	}
+	100% {
+		opacity: 1.0; 
+		transform: 
+			translate(0,0)
+			rotate(0deg)
+			translate(0,-2px)
+			scale(1.0);
+	}
+}
+@keyframes submitTextAnimeActiveL {
+	/* submitの文字Anime active */
+	0% {
+		opacity: 1.0; 
+		transform:
+			translate(calc(-1 * var(--hankei)),2px)
+			rotate(0deg)
+			translate(var(--hankei),-2px)
+			scale(1.0);
+	}
+	50% {
+		opacity: 0.1;
+		transform:
+			translate(calc(-1 * var(--hankei)),2px)
+			rotate(360deg)
+			translate(var(--hankei),-200px)
+			scale(3.0);
+	}
+	51% {
+		opacity: 0.0;
+		transform:
+			translate(0,0)
+			rotate(0deg)
+			translate(0,-2px)
+			scale(1.0);
+	}
+	100% {
+		opacity: 1.0; 
+		transform:
+			translate(0,0)
+			rotate(0deg)
+			translate(0,-2px)
+			scale(1.0);
+	}
+}
+/*** cont-5(contact) ***/
+/** test **
+div.waku {
+	background-color: purple;
+	width: 300px; height: 300px;
+	position: absolute;
+	left: 300px; top: 500px;
+	//overflow: hidden;
+}
+div.waku>div.test1 {
+	display: inline-block;
+	background-color: yellow;
+	width: 10vw; height: 50px;
+
+	position: relative;
+}
+div.waku>div.test2 {
+	display: inline-block;
+	background-color: red;
+	width: 100%; height: 50px;
+
+	position: relative;
+}
+div.waku>div.test3 {
+	display: inline-block;
+	background-color: pink;
+	width: 10%; height: 50px;
+
+	position: sticky;
+	left: 200px; top: 80px; bottom: 100px;
+}/**/
+/*** footer ***/
+footer{
+	width: 100%;
+	position: fixed;
+	bottom: 0px;
+	z-index: 100;
+	/** background-color: yellow; /* 表示確認用 */
+}
+@media screen and (min-width:768px) {
+	footer{
+		min-width: 1020px;
+		position: sticky;
+		bottom: -40px;
+	}
+}
+footer>section.pageTop {
+	//width: calc(100vw - var(--thisScrollBarW));
+	width: 100%;
+	max-width: 1366px;
+	height:10px;
+	margin: 0 auto;
+	
+	//position: absolute;
+	//left: calc(((100vw - var(--thisScrollBarW)) - 100%) / 2);
+	//left: 0px;
+	/** background-color: red; /* 表示確認用 */
+}
+footer>section.pageTop>a {
+	display: inline-block;
+	position: sticky;
+	/* 念の為 位置を挟み撃ちに */
+	left: calc(100vw - 60px - 54px - var(--thisScrollBarW));
+	right: calc((100% - 100vw) + 54px + var(--thisScrollBarW));
+
+	/** background-color: yellow; /* 表示確認用 */
+}
+footer>section.pageTop>a>div.toTop {
+	/** ベース **/
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	
+	background-color: var(--thisBlack);
+	width: 60px; height: 60px;
+	
+	position: relative;
+	left: 0px; top: 0px;
+}
+footer>section.pageTop>a>div.toTop::before {
+	/** ^マークL **/
+	display: block;
+	content: "";
+	width: 28px; height: 28px;
+	border-top: 3px solid var(--thisWhite);
+	
+	position: absolute;
+	
+	transform-origin: center;
+	transform: translateY(10px) rotate(-45deg);
+}
+footer>section.pageTop>a>div.toTop::after {
+	/** ^マークR **/
+	display: block;
+	content: "";
+	width: 28px; height: 28px;
+	border-right: 3px solid var(--thisWhite);
+	
+	position: absolute;
+	
+	transform-origin: center;
+	transform: translateY(10px) rotate(-45deg);
+}
+footer>div.myPins {
+	display: flex;
+	justify-content: space-around;
+	align-items: center; /* 内包パーツを天地中央 */
+	
+	width: 100%; height: 62px;
+	margin: 0 auto;
+	
+	background-color: var(--thisBlack);
+}
+footer>div.myPins>p {
+	color: var(--thisWhite);
+	font-family: 'Noto Serif JP', serif;
+	font-size: 14px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+}
+/*** footer ***/
+@media screen and (min-width:768px) {
+	/* toTopボタンの出し入れ設定 */
+	/* 入れ */
+	footer>section.pageTop>a>div.toTop {
+		/* ベース */
+		transform-origin: center;
+		//transform: translateY(50px);
+		transform: translateY(-5px);
+
+		transition: transform 0.3s ease 0s;
+	}
+	footer>section.pageTop>a>div.toTop::before{
+		/** ^マークL **/
+		transform: translate(-10px,-5px) scaleX(0.75) rotate(0deg);
+		
+		transition: transform 0.3s ease 0s;
+	}
+	footer>section.pageTop>a>div.toTop::after {
+		/** ^マークR **/
+		transform: translate(10px,-5px) scaleX(0.75) rotate(-90deg);
+		
+		transition: transform 0.3s ease 0s;
+	}
+	/* 出し */
+	footer:hover >section.pageTop>a>div.toTop {
+		/* ベース */
+		//transform: translateY(0px);
+		transform: translateY(-50px);
+	}
+	footer:hover >section.pageTop>a>div.toTop::before,
+	footer:hover >section.pageTop>a>div.toTop::after {
+		/** ^マークLR **/
+		transform: translateY(10px) rotate(-45deg);
+	}
+}
+/*********** SP ***********/
+@media screen and (max-width:768px) {
+	body {
+		/* 本体表示エリア外の色 */
+		background-color: black;
+		/* 本体表示エリアのサイズ設定 */
+		--nowViewAreaMAX: 375px;
+		/* 本体表示エリア本体のサイズ設定 */
+		--nowViewAreaBODY: 351px;
+		/* logoの横幅 */
+		--thisLogoW: 240px;
+		/* headerの高さ */
+		--thisHeaderH: 52px;
+	}
+	/**** HEADER ****/
+	header {
+		//background-color: yellow;
+	}
+	header>div.myPins {
+		width: var(--nowViewAreaMAX); height: 52px;
+		/*width: 375px; height: 52px;*/
+		padding: 16px 12px;
+		background-color: var(--thisWhite);
+		
+		right: 0px;
+	}
+	header>div.myPins>h1.logo>a>img {
+		//width: 240px;
+		height: 20px;
+		margin-bottom: 8px;
+	}
+	/**** naviMenu ****/
+	/*** アイコン SET ***/
+	label.navMenuLabel>div.navMenuIcon {
+		/** 土台 枠 **/
+		width: 30px; height: 30px;
+		
+		position: absolute;
+		right: 12px; top: 11px;
+		z-index: 100;
+	}
+	label.navMenuLabel>div.navMenuIcon::after {
+		/** 土台 本体 **/
+		display: block;
+		content: "";
+		width: 30px; height: 30px;
+		background-color: #fafaff;
+		border-radius: 5px;
+		
+		position: absolute;
+		right: 0px; top: 0px;
+		z-index: -1;
+	}
+	label.navMenuLabel>div.navMenuIcon::before {
+		/** 土台 影 **/
+		display: block;
+		content: "";
+		width: 32px; height: 32px;
+		background-color: #eee;
+		border-radius: 5px;
+		
+		position: absolute;
+		left: -1px; top: 0px;
+		z-index: -1;
+	}
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::before,
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::after {
+		content: "";
+		display: block;
+	}
+	label.navMenuLabel>div.navMenuIcon>div.menuBar,
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::before,
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::after {
+		/** バー **/
+		width: 24px; height: 4px;
+		background-color: var(--thisRed);
+		border-radius: 2px;
+
+		position: absolute;
+		left: 2.5px; top: 13px;
+	}
+	/*** アイコンOFF ***/
+	label.navMenuLabel>div.navMenuIcon:after,
+	label.navMenuLabel>div.navMenuIcon:before {
+		border-radius: 5px;
+		transition: border-radius 0.3s ease 0s;
+	}
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::before{
+		left: 0px; top: -9px;
+		transition: transform,top 0.3s ease 0s;
+	}
+	label.navMenuLabel>div.navMenuIcon>div.menuBar::after {
+		left: 0px; top: 9px;
+		transition: transform,top 0.3s ease 0s;
+	}
+	/*** アイコンON ***/
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon,
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon::after,
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon::before {
+		border-radius: 50%;
+	}
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon>div.menuBar{
+		background-color: #fafaff;
+	}
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon>div.menuBar::before{
+		top:0;
+		transform: rotate(45deg);
+		
+		transition: transform 0.4s ease-out 0s;
+	}
+	input#navMenu:checked ~label.navMenuLabel>div.navMenuIcon>div.menuBar::after {
+		top:0;
+		transform: rotate(-45deg);
+		
+		transition: transform 0.4s ease-out 0s;
+	}
+	/*** メニュー SET ***/
+	label>nav {
+		/* 画面幕 */
+		display: block;
+		width: 100%; height: 100vh;
+		background-color: rgba(255,255,255,0.9);
+		left: 0px; top: 0px;
+		z-index: -1;
+	}
+	label>nav>ul {
+		/* リンクボタン表示エリア */
+		display: block;
+		width: 250px;
+		padding: 30px;
+		text-align: center;
+		margin: 52px auto 0px;
+		
+		/**border: 2px solid yellow; /* 表示確認用 */
+	}
+	label>nav>ul>li {
+		/* ボタンのマージン再設定 */
+		margin: 0px;
+		margin-bottom: 30px;
+	}
+	label>nav>ul>li>a {
+		display: block;
+		padding: 5px 0;
+		background-color: white;
+	}
+	label>nav>ul>li>a:hover {
+		background-color: #fee;
+	}
+	/*** メニュー ON ***/
+	input#navMenu:checked ~label>nav {
+		transform: translateY(0vh) scaleY(1);
+		transition: transform 0.3s ease-out 0s;
+	}
+	/*** メニュー OFF ***/
+	label>nav {
+		transform: translateY(-50vh) scaleY(0.1);
+		transition: transform 0.3s ease-in 0s;
+	}
+	/*** hero ***/
+	main>div.heroLayout {
+		/**display:none;
+		/**background-color: rgba(128,128,128,0.5); /* 表示確認用 */
+	}
+	main>div.heroLayout>div.hero {
+		min-width: auto;
+		width: 375px; height: 480px;
+		margin: 52px auto 48px;
+		/**border: 2px solid yellow; /* 表示確認用 */
+	}
+	main>div.heroLayout>div.hero>img {
+		width: 840px; height: auto;
+		left: -244px; top: -53px;
+	}
+	/*** 見出し共通設定 ***/
+	/*** section margin共通 ***/
+	main>section {
+		width:375px;
+		margin-bottom: 28px;
+	}
+	/**/
+	main>div.pages {
+	}
+	main>div.pages:before {
+		/* サイト内遷移用のマーカー */
+		display: block;
+		content: "";
+		height: 1px;
+		margin-bottom: 52px;
+		/**background-color: #faa; /* 表示確認用 */
+	}/**/
+	/*** section margin共通 ***/
+	/** section内layout共通設定 **/
+	main>section>div.layout {
+		width: 351px;
+		margin: 0px auto;
+		/**background-color: green; /* 表示確認用 */
+	}
+	/*** h2共通 ***/
+	main>section>div>h2 {
+		margin-bottom: 24px;
+	}
+	main>section>div>h2>p.title {
+		font-size: 28px;
+		margin-bottom: 8px;
+	}
+	main>section>div>h2>p.subTitle {
+		font-size: 12px;
+	}
+	/*** h2共通 ***/
+	/*** cont-1(concept) ***/
+	main>section.cont-1{
+	}
+	main>section.cont-1>div>h3 {
+		font-size: 20px;
+		margin-bottom: 16px;
+	}
+	main>section.cont-1>div>p {
+		width: 351px;
+		font-size: 14px;
+		letter-spacing: 0.135em; /* ズレて見えるので表示のギリギリを目指す */
+	}
+	/*** cont-1(concept) ***/
+	/*** cont-2(service) ***/
+	main>section.cont-2{
+	}
+	main>section.cont-2>div>ul {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	main>section.cont-2>div>ul>li {
+		width: 351px;
+		margin-bottom: 48px;
+	}
+	main>section.cont-2>div>ul>li:last-child {
+		/* 最後だけbottomのマージン0に */
+		margin-bottom: 0px;
+		/**background-color: pink; /*表示確認用*/
+	}
+	main>section.cont-2>div>ul>li>img {
+		width: 351px;
+		margin-bottom: 8px;
+	}
+	main>section.cont-2>div>ul>li>h3 {
+		font-size: 20px;
+		margin-bottom: 8px;
+	}
+	main>section.cont-2>div>ul>li>p {
+		font-size: 14px;
+		margin-bottom: 8px;
+	}
+	main>section.cont-2>div>ul>li>p.moreLink {
+		/**background-color: gray; /* 表示確認用 */
+		/**border: 2px solid yellow; /* 表示確認用 */
+		
+		height: 20px;
+		
+		/**overflow: visible; /* 表示確認用 */
+	}
+	main>section.cont-2>div>ul>li>p.moreLink>a {
+		font-size: 14px;
+		bottom: 2px;
+	}
+	main>section.cont-2>div>ul>li>p.moreLink>a>span {
+		
+	}
+	main>section.cont-2>div>ul>li>p.moreLink::after,
+	main>section.cont-2>div>ul>li>p.moreLink::before {
+		width: 10px; height: 10px;
+		border-radius: 50%;
+		
+		position: absolute;
+		right: 30px; top: 3px;
+		
+		z-index: -1;
+	}
+	main>section.cont-2>div>ul>li>p.moreLink::after {
+		width: 10px; height: 10px;
+		transform: scale(0);
+		opacity: 0.3;
+		//transition: all 1s ease-in-out 0.1s;
+	}
+	main>section.cont-2>div>ul>li>p.moreLink::before {
+		opacity: 0;
+		//transition: all 1.2s ease-in-out 0s;
+	}
+	/** moreのhover **/
+	main>section.cont-2>div>ul>li>p.moreLink:has(>a:hover)::after {
+		transform: scale(65);
+		opacity: 1;
+	}
+	main>section.cont-2>div>ul>li>p.moreLink:has(>a:hover)::before {
+		width: 700px; height: 700px;
+		right: calc(30px - 350px + 5px); top: calc(3px - 350px + 5px);
+		opacity: 1;
+	}
+	/*** cont-2(service) ***/
+	/*** cont-3(flow) ***/
+	main>section.cont-3 {
+		min-width: auto;
+		padding: 16px 0;
+	}
+	main>section.cont-2 {
+		margin-bottom: 44px;
+	}
+	main>div#FLOW:before {
+		margin-bottom: 36px;
+	}
+	main>section.cont-3>div>ol {
+		height: 352px;
+		flex-direction: column;
+		justify-content: space-around;
+	}
+	main>section.cont-3>div>ol>li {
+		font-size: 16px;
+		text-align: center;
+		/** 長丸 **/
+		width: 300px; height: 32px;
+		padding: 8px 0px;
+		border-radius: 16px;
+		
+		/**display: flex; /* pc用でflex設定済み */
+		justify-content: space-around;
+		align-items: center;
+	}
+	main>section.cont-3>div>ol>span.arrowBox{
+		/* arrow設定 */
+		--arrowH: 32px;
+		--arrowRotate: 90deg;
+	}
+	/*** cont-3(flow) ***/
+	/*** cont-4(Q&A) ***/
+	main>section.cont-4 {
+	}
+	main>section.cont-4>div>dl>dt,
+	main>section.cont-4>div>dl>dd{
+		margin-bottom: 16px;
+		min-height: 36px;/** 各表示の高さが先頭の丸より狭くならない **/
+		/**background-color: pink; /* 表示確認用 */
+	}
+	main>section.cont-4>div>dl>dt>span+span,
+	main>section.cont-4>div>dl>dd>span+span {
+		font-size: 16px;
+		
+		width: 308px;
+		vertical-align: top;
+		margin-bottom: 0.2em;
+		transform: translateY(0.15em);
+		/**border: 2px solid yellow; /* 表示確認用 */
+	}
+	main>section.cont-4>div>dl>dd {
+		margin-bottom: 24px;
+		/**background-color: blue; /* 表示確認用 */
+	}
+	/*** QAアイコン ***/
+	main>section.cont-4>div>dl>dt>span.question,
+	main>section.cont-4>div>dl>dd>span.answer {
+		/** QAアイコン文字 共通設定 **/
+		font-size: 20px;
+		width: 36px; height: 36px;
+		margin-right: 7px;
+	}
+	main>section.cont-4>div>dl>dt>span.question::before,
+	main>section.cont-4>div>dl>dd>span.answer::before {
+		/** QAアイコンベース 共通設定 **/
+		width: 36px; height: 36px;
+		left: -1px; top: -4px;
+	}
+	/*** cont-4(Q&A) ***/
+	/*** cont-5(contact) ***/
+	main>section.cont-5 {
+		//width: auto;
+		padding: 16px 0px;
+		margin-bottom: 172px;/*最後の余白*/
+	}
+	main>section.cont-4 {
+		margin-bottom: 44px;
+	}
+	main>div#CONTACT:before {
+		margin-bottom: 36px;
+	}
+	main>section.cont-5 form {
+		width: 100%; height: auto;
+		background-color: rgba(255,255,255,0);
+		padding: 0px;
+	}
+	section.cont-5 form>p {
+		/*** 各フォームの表示枠 共通設定 ***/
+		text-align: center;
+		height: 56px;
+		margin-bottom: 24px;
+		
+		/**border: 1px solid yellow; /*表示確認用*/
+		/**overflow: hidden; /*表示確認用*/
+		
+		/*** 各設定値 ***/
+		--leftSpaceForInput: 0px;
+		--input1Height: 24px;
+		--inputWidth1: 351px;
+		--inputWidth2: 125px;
+		--inputWidth3: 351px;
+		--inputTextSize: 16px;
+		--inputPadding: 3px;
+		--validBase: 14px;
+	}
+	section.cont-5 form>p:has(input[name="address1"]) {
+		/** 住所部分の表示枠を広げる **/
+		height: 94px;
+	}
+	section.cont-5 form>p:has(textarea) {
+		/** テキストエリア表示枠 個別設定 **/
+		height: 144px;
+		margin-bottom: 24px;
+	}
+	/*** 左側 ***/
+	section.cont-5 form>p>span.Ltxt,
+	section.cont-5 form>p>label>span.Ltxt {
+		/** 左側(見出し)テキスト共通設定 **/
+		font-size: 16px;
+		
+		margin-right: 4px;
+		margin-bottom: 8px;
+		
+		position: relative;
+		left: 0px; top: 0px;
+		
+		/**border: 2px solid red; /*表示確認用*/
+	}
+	section.cont-5 form>p>span.Ltxt{
+		/* お知らせ種別 個別指定 */
+		margin-bottom: 16px;
+	}
+	/*** for 必須マーク ***/
+	section.cont-5 span.hissu {
+		/** 必須 文字 **/
+		font-size: 10px;
+		//width: 40px; height: 18px;
+		
+		position: relative;
+		left: calc( -1 * (22px - 40px) / 2); top: -2px;
+	}
+	section.cont-5 span.hissu::after {
+		/** 必須 ベース **/
+		width: 40px; height:18px;
+		left: calc( (22px - 40px) / 2 ); top: 0px;
+	}
+	/*** 右側 ***/
+	section.cont-5 span.formMatome span.Rtxt {
+		/** 右側(補助)テキスト共通設定 **/
+		font-size: 14px;
+		
+		/**border: 2px solid blue; /*表示確認用*/
+	}
+	section.cont-5 span.formMatome span.Rtxt:has(~input[name="address1"]) {
+		/** 郵便マーク個別指定 **/
+		position: relative;
+		left: 0; top: 4px;
+	}
+	section.cont-5 span.oriRadio {
+		/** オリジナルラジオボタン **/
+		width: 16px; height: 16px;
+	}
+	section.cont-5 label[for="shiryo"],
+	section.cont-5 label[for="sodan"] {
+		/** ラジオボタン毎のまとまり **/
+		top: 0;
+	}
+	section.cont-5 label[for="sodan"] {
+		margin-right:0;
+	}
+	/*** ラジオボタンON用 anime ***/
+	section.cont-5 span.oriRadio::after {
+		width:8px; height:8px;
+		left: 4px; top: 4px;
+		/**opacity: 1; /* 表示確認用 */
+	}
+	section.cont-5 span.oriRadio::before {
+		width: 16px; height: 16px;
+		/**opacity: 1; /* 表示確認用 */
+	}
+
+	section.cont-5 form>p span.formMatome {
+		/** 複数フォームを一塊に **/
+		display: inline-block;
+		width: var(--inputWidth1);
+		height: auto;
+		
+		left: 0px; top: 0px;
+		
+		/**border: 2px solid #aaa; /* 表示確認用 */
+	}
+	section.cont-5 form>p span.formMatome:has(input[name="address1"]) {
+		text-align: left;
+		padding: 0px 0px;
+	}
+	/*** 入力エリア位置設定 ***/
+	section.cont-5 p>label>input,
+	section.cont-5 p>label>span>input,
+	section.cont-5 p>label>textarea {
+		/** 入力エリアの共通設定 **/	
+		/**border: 2px solid orange; /* 表示確認用 */
+	}
+	/*** 入力エリア設定 ***/
+	section.cont-5 input[name="yourName"],
+	section.cont-5 input[name="furigana"],
+	section.cont-5 input[name="phonNumber"],
+	section.cont-5 input[name="yourMail"],
+	section.cont-5 input[name="checkYourMail"] {
+		width: var(--inputWidth1);
+		left: 0px;
+	}
+	section.cont-5 input[name="address1"] {
+		width: var(--inputWidth2);
+		margin-bottom: 8px;
+	}
+	section.cont-5 textarea {
+		height: 120px;
+		left: 0px;
+	}
+	/** 末端 submit設定 **/
+	section.cont-5 form>div:has(input[type="submit"]){
+	/* submit表示枠個別設定 */
+		height: 48px;
+		/**background-color:blue; /* 表示確認用 */
+	}
+	section.cont-5 input[type="submit"] {
+		/*** submit本体 ***/
+		width: 200px; height: 48px;
+	}
+	section.cont-5 div.submitTextGrupe {
+		width: 200px; height: 48px;
+		padding: 0 16px;
+		
+		left: calc((351px - 200px) / 2);
+		top: 0px;
+		
+		transition: background-color 0.5s ease-in 0s;
+	}
+	section.cont-5 div.submitTextGrupe>span.submitText {
+		font-size: 16px;
+		transform: translateY(-2px);
+		
+		/**background-color: red; /* 表示確認用 */
+	}
+	section.cont-5 input[type="submit"]~div.submitTextGrupe>span.arrowBox {
+		/* arrow設定まとめ */
+		--arrowH: 12px;
+
+		margin-left: 4px;
+	}
+	/** inputのfocus時 **/
+	section.cont-5 input:not([type="submit"]):focus,
+	section.cont-5 textarea:focus {
+		//outline: 2px var(--thisRed) solid;
+		
+		/* focus時の設定 */
+		--thisBorderWidth1: 1px;
+		--thisBorderWidth2: 1px;
+		--thisBorderWidth3: 2px;
+		--thisBorderWidth4: 3px;
+	}
+	section.cont-5 span.formMatome span.Rtxt:has(~input[name="address1"]:focus) {
+		/** focus時のズレ打消し */
+		top: 2px;
+	}
+	/*** 必須項目(valid)対応 ***/
+	section.cont-5 span.validCheck {
+		/**background-color: blue; /* 表示確認用 *
+		visibility: visible; /**/
+	}
+	
+	section.cont-5 span.formMatome:has(input[type="radio"])>span.validCheck {
+		--thisX: calc(60px - 3px);
+		--thisY: calc((16px - var(--validBase)) / 2);
+	}
+	section.cont-5 input:not([type="radio"])+span.validCheck {
+		--thisX: calc(-1 * (var(--validBase) + var(--inputPadding) + 3px));
+		/** background-color: pink; /* 表示確認用 */
+	}
+	/*** validCheck NG ***/
+	section.cont-5 label:has(input:required:user-invalid)+span.validCheck::after,
+	section.cont-5 label:has(input:required:user-invalid)+span.validCheck::before,
+	section.cont-5 input:required:user-invalid+span.validCheck::after,
+	section.cont-5 input:required:user-invalid+span.validCheck::before {
+		width: 4px; height: 12px;
+	}/**/
+	/*** validCheck OK ***/
+	section.cont-5 label:has(input:required:user-valid)+span.validCheck::before,
+	section.cont-5 input:required:user-valid+span.validCheck::before {
+		width: 12px; height: 8px;
+		border-left: 4px solid var(--thisWhite);
+		border-bottom: 4px solid var(--thisWhite);
+		border-radius: 2px;
+		transform: translateY(-1.5px) rotate(-35deg);
+	}/**/
+	/* gunyuの設定 */
+	section.cont-5 span.gunyu {
+		width: 200px; height: 48px;
+		left: calc((351px - 200px) / 2);
+	}
+	
+	section.cont-5 span.gunyu::after {
+		width: 200px; height: 48px;
+	}
+	section.cont-5 span.gunyu::before {
+		width: 200px; height: 48px;
+	}
+	/* submitのactive用設定 */
+	section.cont-5 div.submitTextGrupe::after {
+		--thisButtonW: 200px;
+		--thisButtonH: 48px;
+	}
+	section.cont-5 div.submitTextGrupe>span {
+		--hankeiBase: 16px;
+	}
+	/*** cont-5(contact) ***/
+	
+	/*** footer ***/
+	footer>section.pageTop {
+		width: 375px;
+		left: calc((100vw - 375px) / 2);
+	}
+	/*** pageTop ***/
+	footer>section.pageTop>a>div.toTop {
+		/** ベース **/
+		width: 46px; height: 46px;
+		right: 12px; bottom: 0px;
+	}
+	footer>section.pageTop>a>div.toTop::before {
+		/** ^マークL **/
+		width: 21px; height: 21px;
+		transform: translateY(10px) rotate(-45deg);
+	}
+	footer>section.pageTop>a>div.toTop::after {
+		/** ^マークR **/
+		width: 21px; height: 21px;
+		transform: translateY(10px) rotate(-45deg);
+	}
+	/*** pageTop ***/
+	footer>div.myPins{
+		height: 45px;
+	}
+	footer>div.myPins>p {
+		font-size: 12px;
+	}
+}
