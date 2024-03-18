@@ -60,17 +60,18 @@ footer div.stech {
 }
 
 div.layoutWrap {
-	//width: 900px;
-	width: 90wv;
+	/* width: 900px; */
+	width: 90vw;
 	
 	padding: 10px 5px;
-	//margin: 0px auto 5px;
+	/* margin: 0px auto 5px; */
 	margin: 0px auto 70px;
 	
 	//background-color: gray;
 	
 	display: flex;
 	justify-content: space-evenly;
+	column-gap: 5px;
 }
 
 div.cardRirekiView {
@@ -81,7 +82,7 @@ div.cardRirekiView {
 
 main {
 	min-height: 350px;
-	
+	max-width: 80vw;
 	flex-basis: 650px;
 	//width: 650px;
 	//height: 400px;
@@ -91,6 +92,8 @@ main {
 	border: 1px solid #a6a622;
 	border-bottom: 3px solid #a6a622;
 	border-radius: 20px;
+	
+	//background: red;
 }
 
 aside nav {	
@@ -330,12 +333,20 @@ img[alt="トランプの表面"] {
 	transition: all 0.6s ease 0s;
 }
 
+/* クリックでめくるように変更 */
+div#imagePage_card.open>img[alt="トランプの裏面"] {
+	transform: rotate3d( 0, 10, 0, 180deg) translate3d(50px, 0px, 0px);
+}
+div#imagePage_card.open>img[alt="トランプの表面"] {
+	transform: rotate3d( 0, 10, 0, 0deg) translate3d(0px, 0px, 0px);
+}
+/*
 img[alt="トランプの裏面"]:active {
 	transform: rotate3d( 0, 10, 0, 180deg) translate3d(50px, 0px, 0px);
 }
 img[alt="トランプの裏面"]:active~img[alt="トランプの表面"] {
 	transform: rotate3d( 0, 10, 0, 0deg) translate3d(0px, 0px, 0px);
-}
+}*/
 
 p.cardsInfo {
 	line-height: 1.5;
@@ -465,12 +476,11 @@ div.cardsBG img:hover {
 		border-bottom: 0px;
 
 		display: flex;
-		justify-content: space-between;
+		justify-content: space-evenly;
 	}
-	
 	aside nav ul li a {
 		text-align: center;
-		width: 17vw;
+		/* width: 17vw; */
 		padding: 5px 10px;
 		margin-bottom: 5px;
 
@@ -481,7 +491,7 @@ div.cardsBG img:hover {
 	}
 
 	aside nav ul li a[href="./put_cards.html"] {
-		width: 38vw;
+		/* width: 38vw; */
 	}
 	
 	aside nav ul a.nowPage {
@@ -562,7 +572,7 @@ form> input.inputNum {
 	width: 100px;
 }
 table.view {
-	//border: 1px solid #999;
+	/* border: 1px solid #999; */
 	font-size: 10px;
 	margin: 20px 5px;
 }
@@ -577,4 +587,57 @@ table.view tr.sinsu2 td.ON {
 table.view tr.sinsu2 td.OFF {
 	height: 50px;
 	background-color: #fff;
+}
+/* 素数計算 */
+p.caution {
+	color: #f33;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 0 1em;
+}
+input[class^="func"] {
+	background-color: #fff;
+	border: 2px solid #666;
+	border-radius: 5px;
+	padding: 3px;
+	margin: 5px;
+}
+div.layoutImg>ul>li {
+	background-color: #ccc;
+	border-radius: 0.5em;
+	margin: 10px 5px;
+	padding: 2px 5px 5px;
+}
+div.layoutImg>ul>li:has(p.displayNone) {
+	padding-bottom: 2px;
+}
+div.layoutImg>ul>li>p {
+	background-color: #999;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+div.layoutImg>ul>li>p:has(>span.view) {
+	padding-bottom: 10px;
+}
+div.layoutImg>ul>li>p>span {
+	display: block;
+	margin: 0px 0px;
+}
+div.layoutImg>ul>li>p>span:first-of-type {
+	margin-bottom: 5px;
+}
+div.layoutImg>ul>li>p>span.view {
+	display: block;
+	width:100%;
+	background-color: #eee;
+	border-radius: 5px;
+	padding: 5px;
+	overflow-wrap: anywhere;
+	text-align: justify;
+}
+.displayNone {
+	display: none;
+}
+input:disabled {
+	background-color: #ccc;
 }
