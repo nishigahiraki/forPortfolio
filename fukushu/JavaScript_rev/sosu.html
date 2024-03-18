@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="stylesheet" href="./css/reset.css">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="./css/style.css">
+		<title>HTML/CSSの復習|素数</title>
+	</head>
+	<body>
+		<header>
+			<div class="stech">
+				<h1 class="ffDotGothixc16">HTML/CSSの<br class="onlySP">復習</h1>
+			</div>
+		</header>
+		<div class="layoutWrap">
+			<main>
+				<h2>素数計算</h2>
+				<div class="layoutImg">
+					<form id="sosuSearch" class="sosu">
+						<input type="text" class="inputNum" name="inputSosu" min="2" value="25"><span>までの素数は...?</span>
+					</form>
+					<p class="caution">※大きな数は、探索に時間がかかることをご了承ください。</p>
+					<ul>
+						<li>
+							<div>・関数１で <input type="submit" class="func1" value="探索"> (シンプルに総当たり)</div>
+							<p class="ans func1 displayNone">
+								<span class="ansBody">計算中...</span>
+								<span class="ansDetail displayNone">内容を見る</span>
+							</p>
+						</li>
+						<li>
+							<div>・関数２で <input type="submit" class="func2" value="探索"> (偶数をはずす)</div>
+							<p class="ans func2 displayNone">
+								<span class="ansBody">計算中...</span>
+								<span class="ansDetail displayNone">内容を見る</span>
+							</p>
+						</li>
+						<li>
+							<div>・関数３で <input type="submit" class="func3" value="探索"> (チェックリストを作る)</div>
+							<p class="ans func3 displayNone">
+								<span class="ansBody">計算中...</span>
+								<span class="ansDetail displayNone">内容を見る</span>
+							</p>
+						</li>
+						<li>
+							<div>・関数4で <input type="submit" class="func4" value="探索"> (エラトステネスの篩)</div>
+							<p class="ans func4 displayNone">
+								<span class="ansBody">計算中...</span>
+								<span class="ansDetail displayNone">内容を見る</span>
+							</p>
+						</li>
+					</ul>
+				</div>
+			</main>
+			<aside>
+				<nav>
+					<h3>各ページへのリンク</h3>
+					<ul>
+						<li><a href="./index.html">文章</a></li>
+						<li><a href="./image.html">画像</a></li>
+						<li><a href="./table.html">表</a></li>
+						<li><a href="./put_cards.html">画像の複数配置</a></li>
+						<li><a href="./sinsu.html">進数計算</a></li>
+						<li><a href="./sosu.html" class="nowPage">素数計算</a></li>
+					</ul>
+				</nav>
+			</aside>
+		</div>
+		<footer>
+			<div class="stech">
+				<p class="ffDotGothixc16"><small>Nishigahiraki Ai</small></p>
+			</div>
+		</footer>
+		<script src="./script/jquery-3.7.1.min.js"></script>
+		<script src="./script/script.js"></script>
+	</body>
+</html>
