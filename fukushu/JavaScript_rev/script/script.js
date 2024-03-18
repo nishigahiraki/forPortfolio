@@ -1,10 +1,10 @@
 'use strict';
 
-let testAry = [1,2,3,4];
-let tempAry = [...testAry];
-console.log( 'tempAry.reverse:::',tempAry.reverse() );
-console.log( 'testAry:::',testAry );
-console.log( 'tempAry:::',tempAry );
+// let testAry = [1,2,3,4];
+// let tempAry = [...testAry];
+// console.log( 'tempAry.reverse:::',tempAry.reverse() );
+// console.log( 'testAry:::',testAry );
+// console.log( 'tempAry:::',tempAry );
 
 // イメージのフォルダ
 const imageFOLDER = './img/';
@@ -77,6 +77,7 @@ if ( myCardBoxElement ){
 		/*while( myCardBoxElement.children.length > 0 ){
 			myCardBoxElement.removeChild( myCardBoxElement.children[0] );
 		}*/
+		if(myCardBoxElement.classList.toggle('open')) {
 		let selectCard = 'card_'
 		// if( cardOpenIs ){
 		// 	// カードが表の時
@@ -94,7 +95,7 @@ if ( myCardBoxElement ){
 		// 表示カードの更新
 		//myCardBoxElement.innerHTML = `<img src="${imageFOLDER}${selectCard}.png">`;
 		myCardImgElement.src = `${imageFOLDER}${selectCard}.png`;
-
+		}
 	}
 }
 //
@@ -1039,114 +1040,175 @@ if( document.getElementById( 'putCardsBG' ) ) { // カードの表示枠があ�
 } // ポーカー以上
 //
 //
-// 素数
-const x = 100000;
-
-function sosu1(x) { // 素数探求 その1 定義をそのまま対応
-	const sosu = [];
-	for(let i=2; i<x; i++) {
-		for(let j=2; j<=i; j++) {
-			if( i % j === 0 ) {
-				if(i === j) {
-					sosu.push( i );
-				}
-				break;
-			}
-		}
-	}
-	console.log( `${x}までの素数1:::`,sosu );
-}
-
-function sosu2(x) { // 素数探求 その2 チェックは定義をそのまま対応だが、偶数は候補から外す
-	const sosu=[2];
-	for(let i=1; 2 * i + 1 <=x; i++) {
-		let a = 2 * i + 1;
-		for(let j=1; 2 * j + 1 <=a; j++) {
-			let b = 2 * j + 1;
-			if( a % b === 0 ) {
-				if(a === b) {
-					sosu.push( a );
-				}
-				break;
-			}
-		}
-	}
-	console.log( `${x}までの素数2:::`,sosu );
-}
-
-function sosu3(x) {  // 素数探求 その3 偶数を候補から外し、チェック項目を作ったリスト内で対応
-	const sosu=[2];
-	for(let i=1; 2 * i + 1 <=x; i++) {
-		let a = 2 * i + 1; // 素数の候補をはじめから、奇数に制限
-		for(let j=0; j < sosu.length; j++) {
-			if( a % sosu[j] === 0 ) {
-				// sosuの登録リスト内のどれかで割り切れたら、次の候補へ
-				break;
-			}
-			else {
-				if( j === sosu.length -1 ) {
-					// チェックが最後まで進んだ時(割り切る数がなかった時)...
-					sosu.push( a ); // リストに登録
+// 素数計算
+if( document.querySelector('form.sosu') ) {
+	//const x = 100000;
+	function func1(x) { // 素数探求 その1 定義をそのまま対応
+		const sosu = [];
+		for(let i=2; i<x; i++) {
+			for(let j=2; j<=i; j++) {
+				if( i % j === 0 ) {
+					if(i === j) {
+						sosu.push( i );
+					}
+					break;
 				}
 			}
 		}
+		//console.log( `${x}までの素数1:::`,sosu );
+		return sosu;
 	}
-	console.log( `${x}までの素数3:::`,sosu );
-}
-/**/
-function furui(x) {
-	const furuiAry = []
-	for(let i=0; i<x; i++) { furuiAry[i] = true; }
-	furuiAry[0] = false;
-	const sosu = [];
-	for(let i=1; i<x; i++) {
-		if( furuiAry[i] ) {
-			sosu.push( i+1 );
-			for(let j=1; (i+1)*j<=x; j++) {
-				furuiAry[(i+1)*j-1] = false;
+
+	function func2(x) { // 素数探求 その2 チェックは定義をそのまま対応だが、偶数は候補から外す
+		const sosu=[2];
+		for(let i=1; 2 * i + 1 <=x; i++) {
+			let a = 2 * i + 1;
+			for(let j=1; 2 * j + 1 <=a; j++) {
+				let b = 2 * j + 1;
+				if( a % b === 0 ) {
+					if(a === b) {
+						sosu.push( a );
+					}
+					break;
+				}
 			}
 		}
+		//console.log( `${x}までの素数2:::`,sosu );
+		return sosu;
 	}
-	console.log( `${x}までの素数(furui):::`,sosu );
+
+	function func3(x) {  // 素数探求 その3 偶数を候補から外し、チェック項目を作ったリスト内で対応
+		const sosu=[2];
+		for(let i=1; 2 * i + 1 <=x; i++) {
+			let a = 2 * i + 1; // 素数の候補をはじめから、奇数に制限
+			for(let j=0; j < sosu.length; j++) {
+				if( a % sosu[j] === 0 ) {
+					// sosuの登録リスト内のどれかで割り切れたら、次の候補へ
+					break;
+				}
+				else {
+					if( j === sosu.length -1 ) {
+						// チェックが最後まで進んだ時(割り切る数がなかった時)...
+						sosu.push( a ); // リストに登録
+					}
+				}
+			}
+		}
+		//console.log( `${x}までの素数3:::`,sosu );
+		return sosu;
+	}
+	/**/
+	function func4(x) { // エラトステネスの篩
+		const furuiAry = []
+		for(let i=0; i<x; i++) { furuiAry[i] = true; }
+		furuiAry[0] = false;
+		const sosu = [];
+		for(let i=1; i<x; i++) {
+			if( furuiAry[i] ) {
+				sosu.push( i+1 );
+				for(let j=1; (i+1)*j<=x; j++) {
+					furuiAry[(i+1)*j-1] = false;
+				}
+			}
+		}
+		//console.log( `${x}までの素数(furui):::`,sosu );
+		return sosu;
+	}
+	/**
+	const now = new Date();
+	let sosuStart = now.getTime();
+	/**
+	sosu1(x);
+	console.log(new Date().getTime() - sosuStart);
+
+	sosuStart = new Date().getTime();
+	sosu2(x);
+	console.log(new Date().getTime() - sosuStart);
+	/**
+	sosuStart = new Date().getTime();
+	sosu3(x);
+	console.log(`素数計算時間::: ${new Date().getTime() - sosuStart} ms`);
+
+	sosuStart = new Date().getTime();
+	furui(x);
+	console.log(`素数計算時間::: ${new Date().getTime() - sosuStart} ms`);
+	/**/
+	const inputNumArea = document.body.querySelector('.inputNum');
+	// 各関数で出した素数の本体の格納場所
+	const ansDetails= {};
+	// 探索ボタンのリスナー設定
+	const funcBtns = document.body.querySelectorAll('input[type="submit"]');
+	for(const funcBtn of funcBtns) {
+		funcBtn.addEventListener('click', clickTansakuBtn);
+	}
+	function clickTansakuBtn(evt) {
+		const target = evt.target;
+		const ansViewP = document.querySelector('p.ans.'+evt.target.className);
+		//
+		ansViewP.classList.remove('displayNone');
+		target.setAttribute('disabled','disabled');
+		//
+		setTimeout(function() {
+		// 計測 スタート
+		const now = new Date();
+		const sosuStart = now.getTime();
+		// 素数探索関数
+		const sosuList = eval(`${target.className}(${inputNumArea.value})`);
+		//const sosuList = sosu1(inputNumArea.value);
+		// 計測
+		const duration = new Date().getTime() - sosuStart;
+		ansViewP.querySelector('span.ansBody').textContent = `${inputNumArea.value}までの素数：${sosuList.length} こ / ${duration/1000} 秒`;
+		ansViewP.querySelector('span.ansDetail').classList.remove('displayNone');
+		ansDetails[target.className] = sosuList;
+		},0);
+	}
+	// 内容確認ボタンの設定
+	const detailViews = document.body.querySelectorAll('span.ansDetail');
+	for( const element of detailViews ) {
+		//console.log(element);
+		element.addEventListener('click', function(evt) {
+			if(evt.target.classList.toggle('view')) {
+				evt.target.textContent = ansDetails[evt.target.parentElement.classList[1]];
+			}
+			else { evt.target.textContent = '内容を見る'; }
+		});
+	}
+	// 入力エリアの監視
+	inputNumArea.addEventListener('change',setInit);
+	function setInit(evt) {
+		for(const funcBtn of funcBtns) {
+			funcBtn.removeAttribute('disabled');
+		}
+		for(const pElement of document.body.querySelectorAll('p.ans')) {
+			pElement.classList.add('displayNone');
+		}
+		for(const element of document.body.querySelectorAll('span.ansBody')) {
+			element.textContent = '計算中...';
+		}
+		for( const element of detailViews ) {
+			element.classList.add('displayNone');
+			element.classList.remove('view');
+			element.textContent = '内容を見る';
+		}
+	}
+	//alert( sosu );
+	//
+	// 100まで
+	// 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.(25こ)
+	// 1000まで
+	//2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,
+	//101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,
+	//193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,
+	//293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,
+	//409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,
+	//521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,
+	//641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,
+	//757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,
+	//881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997.(168こ)
+	// 10000まで 1229こ
+	// 100000まで 9592こ 3163ms
 }
-/**/
-const now = new Date();
-let sosuStart = now.getTime();
-/**
-sosu1(x);
-console.log(new Date().getTime() - sosuStart);
-
-sosuStart = new Date().getTime();
-sosu2(x);
-console.log(new Date().getTime() - sosuStart);
-/**/
-sosuStart = new Date().getTime();
-sosu3(x);
-console.log(`素数計算時間::: ${new Date().getTime() - sosuStart} ms`);
-
-sosuStart = new Date().getTime();
-furui(x);
-console.log(`素数計算時間::: ${new Date().getTime() - sosuStart} ms`);
-/**/
-
-
-//alert( sosu );
-//
-// 100まで
-// 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97.(25こ)
-// 1000まで
-//2,3,5,7,11,13,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79,83,89,97,
-//101,103,107,109,113,127,131,137,139,149,151,157,163,167,173,179,181,191,
-//193,197,199,211,223,227,229,233,239,241,251,257,263,269,271,277,281,283,
-//293,307,311,313,317,331,337,347,349,353,359,367,373,379,383,389,397,401,
-//409,419,421,431,433,439,443,449,457,461,463,467,479,487,491,499,503,509,
-//521,523,541,547,557,563,569,571,577,587,593,599,601,607,613,617,619,631,
-//641,643,647,653,659,661,673,677,683,691,701,709,719,727,733,739,743,751,
-//757,761,769,773,787,797,809,811,821,823,827,829,839,853,857,859,863,877,
-//881,883,887,907,911,919,929,937,941,947,953,967,971,977,983,991,997.(168こ)
-// 10000まで 1229こ
-// 100000まで 9592こ 3163ms
-//
+// 以上 素数計算
 //
 // n進数 変換
 if( document.querySelector('form.sinsu') ) {
