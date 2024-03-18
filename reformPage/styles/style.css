@@ -2606,14 +2606,22 @@ footer>div.myPins>p {
 	
 	/*** footer ***/
 	footer>section.pageTop {
-		width: 375px;
-		left: calc((100vw - 375px) / 2);
+		width: 100%;
+		max-width: 375px;
+		position: relative;
+	}
+	footer>section.pageTop>a {
+		width: 46px;
+		position: absolute;
+		left: auto; top: auto;
+		right: 12px; bottom: -5px;
 	}
 	/*** pageTop ***/
 	footer>section.pageTop>a>div.toTop {
 		/** ベース **/
 		width: 46px; height: 46px;
-		right: 12px; bottom: 0px;
+		left: 0px; top: 0px;
+		right: 0px; bottom: 0px;
 	}
 	footer>section.pageTop>a>div.toTop::before {
 		/** ^マークL **/
