@@ -4,11 +4,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="../common/reset.css">
+		<!--link rel="stylesheet" href="../common/reset.css"-->
 		<title>test</title>
 		<style>
 			@charset "utf-8";
 			
+			body {
+				font-family: monospace, sans-serif;
+			}
+
 			div.testDiv {
 				width: 100px;
 				height: 100px;
@@ -25,19 +29,23 @@
 			div.testOFF {
 				opacity: 0.0;
 			}
-			div.formParts {
+			div.controlView,
+			div.configWrap {
 				width: 300px; height: auto;
 			}
-			div.formParts label {
+			div.configWrap label {
 				display: block;
 			}
-			div.formParts label input {
+			div.configWrap label input {
 				display: inline;
 			}
 			
 			input[type="number"] {
 				text-align: right;
 				width: 4em;
+				margin-right: 5px;
+
+				vertical-align: middle;
 			}
 
 			.useHTML::after {
@@ -51,30 +59,172 @@
 				color: white;
 				background-color: purple;
 			}
+			.configWrap {
+				//background-color: #090;
+				padding: 0;
+				border-radius: calc(0.5em + 3px);
+				margin: 0px auto;
+				margin-bottom: 0.5em;
+			}
+			.configWrap>p:not(.configHeader) {
+				padding: 5px 1em 10px;
+				background-color: #060;
+			}
+			.configWrap>p:nth-of-type(2) {
+				border-radius: 8px 8px 0px 0px;
+			}
+			.configWrap>p:last-of-type {
+				border-radius: 0px 0px 8px 8px;
+			}
+			p {
+				margin: 0px;
+			}
+			p.configHeader {
+				font-family: impact;
+				font-size: 24px;
+				line-height: 24px;
+
+				background-color: green;
+				padding: 3px 3px 3px 0.5em;
+				border-radius: calc(0.5em + 3px);
+
+				display: inline-flex;
+				align-items: center;
+			}
+			p.configHeader>span {
+				display: inline-block;
+				width: 1em; height: 1em;
+				margin-left: 0.5em;
+				background: rgb(3,3,0);
+				border-radius: 0.5em;
+
+				position: relative;
+				transform: rotate(90deg);
+
+				transition: all 0.3s ease 0s;
+			}
+			p.configHeader.close>span {
+				transform: rotate(0deg);
+			}
+			p.configHeader>span>span {
+				display: inline-block;
+				width: 0.5em; height: 1em;
+				position: relative;
+				left: calc(0.25em + 1px);
+				overflow: hidden;
+				/* background: blue; */
+				
+				transform: scaleY(calc(2/3));
+			}
+			p.configHeader>span>span::before {
+				content: "";
+				display: inline-block;
+				width: 1em;
+				height: 1em;
+
+				position: absolute;
+				background-color: orange;
+				transform: translateX(-0.5em) rotate(45deg) scale(calc(1.4142/2));
+			}
+
+
+			div.controlView,
+			div.gameView {
+				margin: 0 auto;
+			}
+
+			div.timeView {
+				color: #ae6;
+				font-weight: bold;
+				padding: 5px 1em;
+				margin: 10px;
+				border-radius: 0.5em;
+				background: #300;
+
+				display: flex;
+				justify-content: space-between;
+			}
+			div.gameView {
+				font-family: monospace;
+			}
+			div.mesWrap {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+
+				background: rgba(0,0,0,0.75);
+			}
+			div.gameMes {
+				text-align: center;
+				font-family: sans-serif;
+				color: #e66;
+				font-size: 24px;
+				font-weight: bold;
+				line-height: 32px;
+
+				padding: 5px 1em;
+				border-radius: 5px;
+				background:rgba(0,0,0,0.8);
+			}
+			.displayNone {
+				display: none;
+			}
+			@keyframes countDownAnime {
+				0% { transform: scale(0); }
+				40% { transform: scale(3); }
+				45% { transform: scale(2.4); }
+				48% { transform: scale(2.6); }
+				50% { transform: scale(2.5); }
+				70% { transform: scale(2.5); }
+				100% { transform: scale(0); }
+			}
+			.gameMes.countDown {
+				animation: countDownAnime 1s 3 ease-in-out 0s both;
+			}
+			@keyframes countEndAnime {
+				0% { transform: scale(0); }
+				100% { transform: scale(5); }
+			}
+			.gameMes.countEnd {
+				animation: countEndAnime 0.3s 1 ease-in-out 0s both;
+			}
+			div.mesWrap.countEnd {
+				opacity: 0;
+				transition: opacity 0.3s ease 0s;
+			}
 		</style>
 	</head>
 
 	<body>
 		<!-- div class="testDiv useHTML useCSS useJS"></div>
 		<a class="testBtn" href="">test</a -->
-		<div class="formParts">
-			<p>
-				<label><span>箱のサイズ[縦]：</span><input type="number" name="hacoH" value="240">px</label>
-				<label><span>箱のサイズ[横]：</span><input type="number" name="hacoW" value="240">px</label>
-			</p>
-			<p>
-				<label><span>分割数[縦]：</span><input type="number" name="bunkatsuY" value="3">こ</label>
-				<label><span>分割数[横]：</span><input type="number" name="bunkatsuX" value="3">こ</label>
-			</p>
-			<p>
-				<label><span>シャッフル：</span><input type="number" name="shuffleNum" value="1">セット</label>
-			</p>
-			<p>
-				<input type="button" id="buildBoxBtn" value="箱を作る">
-				<input type="button" id="newGameBtn" value="新規ゲーム">
-				<input type="button" id="shuffleBtn" value="シャッフル">
-				<input type="button" id="retryBtn" value="RETRY">
-			</p>
+		<div class="controlView">
+			<div class="configWrap">
+				<p class="configHeader">CONFIG<span><span></span></span></p>
+				<p>
+					<label><span>箱のサイズ[縦]：</span><input type="number" name="hacoH" value="240">px</label>
+					<label><span>箱のサイズ[横]：</span><input type="number" name="hacoW" value="240">px</label>
+				</p>
+				<p>
+					<label><span>分割数[縦]：</span><input type="number" name="bunkatsuY" value="3">こ</label>
+					<label><span>分割数[横]：</span><input type="number" name="bunkatsuX" value="3">こ</label>
+				</p>
+				<p>
+					<label><span>シャッフル：</span><input type="number" name="shuffleNum" value="1">セット</label>
+				</p>
+				<p>
+					<input type="button" id="buildBoxBtn" value="箱を作る">
+				</p>
+			</div>
+			<div class="buttonWrap">
+					<input type="button" id="newGameBtn" value="新規ゲーム">
+					<input type="button" id="shuffleBtn" value="シャッフル">
+					<input type="button" id="retryBtn" value="RETRY">
+				</p>
+			<div>
+		</div>
+		<div class="gameView">
+			<div class="timeView"></div>
 		</div>
 		<script>
 			'use strict';
@@ -238,11 +388,11 @@
 				bunkatsuY : 3,
 				shuffleNum : 1,
 			};
-			//
+			/*
 			let testn = 5;
 			let testm = ( testn < 10 ) ? function(){console.log('10miman'); return 0;} : ()=>{console.log('10ijo'); return 10;};
 			console.log('test result:::', testm);
-			//
+			*/
 
 			// スライドゲーム関係
 			class MyPanel {
@@ -259,18 +409,25 @@
 					//
 					this.timerID = undefined;
 				}
-				init() {
+				init( max ) {
 					this.elmt = document.createElement( 'div' );
 					this.elmt.id = this.name;
 					this.elmt.innerHTML = `<p>${this.No}</p>`;
 					this.elmt.querySelector('p').style['width'] = `100%`;
 					this.elmt.querySelector('p').style['text-align'] = 'center';
-					this.elmt.querySelector('p').style['font-size'] = `${0.5*this.width/String(this.No).length}px`;
+					// 最大と最小の中間のサイズにしてみる
+					let ratio = 0.5;
+					if(max > 9) { ratio = 0.75; }
+					this.elmt.querySelector('p').style['font-size'] = `${ratio*this.width*(1+1/String(max).length)/2}px`;
+					//
 					this.elmt.querySelector('p').style['pointer-events'] = `none`;
+					this.elmt.querySelector('p').style['user-select'] = `none`;
+					this.elmt.querySelector('p').style['-webkit-user-select'] = `none`; /* for safari */
+					//
 					this.elmt.style['width'] = `${this.width}px`;
 					this.elmt.style['height'] = `${this.height}px`;
 					this.elmt.style['background-color'] = 'violet';
-					this.elmt.style['border-radius'] = `5px`;
+					this.elmt.style['border-radius'] = `${this.width*(5/(70))}px`; // パネル幅70pxで5pxの角丸
 					this.elmt.style['display'] = 'flex';
 					this.elmt.style['align-items'] = 'center';
 					this.elmt.style['position'] = 'absolute';
@@ -344,16 +501,36 @@
 					}
 					//
 				}
-				init() {
+				init( view = document.body ) {
+					console.log(view);
 					this.hacoElmt = document.createElement( 'div' );
 					this.hacoElmt.style['width'] = `${this.width}px`;
 					this.hacoElmt.style['height'] = `${this.height}px`;
 					this.hacoElmt.style['background-color'] = 'gray';
 					this.hacoElmt.style['position'] = 'relative';
 					//
-					document.body.appendChild(this.hacoElmt);
+					view.appendChild(this.hacoElmt);
+					view.style['width'] = `${this.width}px`;
+					view.style['height'] = `${this.height}px`;
 					//
 					this.panels = [];
+					//
+					this.wrapElmt = document.createElement( 'div' );
+					this.wrapElmt.className = 'mesWrap';
+					this.wrapElmt.style['width'] = `${this.width}px`;
+					this.wrapElmt.style['height'] = `${this.height}px`;
+					this.wrapElmt.style['position'] = 'absolute';
+					this.wrapElmt.style['left'] = '0px';
+					this.wrapElmt.style['top'] = '0px';
+					//
+					// メッセージ表示枠
+					this.mesElmt = document.createElement( 'div' );
+					this.mesElmt.className = 'gameMes';
+					//this.mesElmt.classList.add('displayNone'); // 一旦非表示
+					this.mesElmt.innerHTML = 'Get Ready ?';
+					//
+					this.wrapElmt.appendChild(this.mesElmt);
+					//
 				}
 				clear() {
 					if(this.hacoElmt) {
@@ -370,9 +547,12 @@
 						const tempPanel = new MyPanel(i+1, this.width/this.sepX-3, this.height/this.sepY-3,this.hacoElmt);
 						tempPanel.posX = this.rooms[i].Xo - tempPanel.width/2;
 						tempPanel.posY = this.rooms[i].Yo - tempPanel.height/2;
-						tempPanel.init();
+						tempPanel.init( num );
 						this.panels.push( tempPanel );
 					}
+					//
+					// パネルより上にメッセージを設置
+					this.hacoElmt.appendChild(this.wrapElmt);
 				}
 				//
 			}
@@ -380,16 +560,16 @@
 			// フォーム内容取得関係
 			const shuffleNumInput = document.querySelector('input[name="shuffleNum"]'); // シャッフル回数の変更を監視する。
 			shuffleNumInput.addEventListener('change', function(evt) {
-				shuffleNumInput.value = gameSTs.shuffleNum = ( shuffleNumInput.value >= 0 ) ? shuffleNumInput.value : 0;
+				shuffleNumInput.value = gameSTs.shuffleNum = ( Number( shuffleNumInput.value ) >= 0 ) ? Number( shuffleNumInput.value ) : 0;
 			});
-			const buildBoxBtn = document.querySelector('input#buildBoxBtn');
-			console.log(buildBoxBtn);
+			const buildBoxBtn = document.querySelector('input#buildBoxBtn'); // 箱を作る
+			//console.log(buildBoxBtn);
 			buildBoxBtn.addEventListener('click', function(evt) {
 				// フォームから入力
-				const hacoW = document.querySelector('input[name="hacoW"]').value;
-				const hacoH = document.querySelector('input[name="hacoH"]').value;
-				const bunkatsuX = document.querySelector('input[name="bunkatsuX"]').value;
-				const bunkatsuY = document.querySelector('input[name="bunkatsuY"]').value;
+				const hacoW = Number( document.querySelector('input[name="hacoW"]').value );
+				const hacoH = Number( document.querySelector('input[name="hacoH"]').value );
+				const bunkatsuX = Number( document.querySelector('input[name="bunkatsuX"]').value );
+				const bunkatsuY = Number( document.querySelector('input[name="bunkatsuY"]').value );
 				//const shuffleNum = document.querySelector('input[name="shuffleNum"]').value;
 				//
 				console.log('input_hacoW ::::::', hacoW);
@@ -413,10 +593,31 @@
 				// 新規ゲーム
 				slideGameHaco.clear(); // hacoをDOMから消す
 				slidGameInit(); // スライドゲーム初期化関数を呼び出し
+				//
+				// configの表示を調整
+				const configWrapInPs = document.body.querySelectorAll('div.configWrap>p:not([class="configHeader"])');
+				for( const p of configWrapInPs ) {
+					p.classList.add('displayNone');
+				}
+				console.log('p.configHeader');
+				document.body.querySelector('p.configHeader').classList.add('close');
+				// メッセージの切り替え
+				timeViewerOBJ.viewStartMes();
+				//
+				slideGameHaco.wrapElmt.addEventListener('click', getReady, {once: true});
+			});
+			// config 表示/非表示
+			const configHeader = document.body.querySelector('div.configWrap>p.configHeader');
+			configHeader.addEventListener('click', (evt) => {
+				const configWrapInPs = document.body.querySelectorAll('div.configWrap>p:not([class="configHeader"])');
+				for( const p of configWrapInPs ) {
+					p.classList.toggle('displayNone');
+				}
+				document.body.querySelector('p.configHeader').classList.toggle('close');
+				console.log( document.body.querySelector('p.configHeader') );
 			});
 			// リトライボタン
-			const retryBtn = document.querySelector('input#retryBtn');
-			retryBtn.addEventListener('click', function(evt) {
+			document.querySelector('input#retryBtn').addEventListener('click', function(evt) {
 				//console.log(numList_forRetry);
 				// バックアップしておいたリストで配列を復帰
 				numList = [...numList_forRetry];
@@ -431,6 +632,48 @@
 				}
 			});
 			//
+			// 時間表示枠(メッセージの表示にも...)
+			const timeViewerOBJ = {
+				elmt :  document.body.querySelector('div.timeView'),
+				view : function( MESSAGE ) {
+					//console.log('MESSAGE:::',MESSAGE);
+					this.elmt.innerHTML = MESSAGE;
+				},
+				viewConfigMes : function() { this.view('Please confing ...'); }, // 初期メッセージ
+				viewShuffleMes : function() { this.view('Please Shuffle ...'); },
+				viewStartMes : function() { this.view('START to Enter or Click'); },
+			}
+			timeViewerOBJ.viewConfigMes();
+			//
+			// 計測用 時計オブジェクト
+			const watchOBJ = {
+				now : new Date(),
+				startTime : 0,
+				setStartTime : function() {
+					this.startTime = (new Date()).getTime();
+				},
+				getPastTime : function() {
+					return (new Date()).getTime() - this.startTime;
+				},
+			}
+			let timerFlg = false;
+			watchOBJ.setStartTime(); // ストップウォッチの始まりを設定
+			function viewNowTime() { //ストップウォッチのループ関数(onGameIsを制御フラグとする)
+				const timeMes = watchOBJ.getPastTime();
+				timeViewerOBJ.view('<span>TIME ::: </span><span>' + timeMes + ' ms</span>');
+				if( onGameIs ) {
+					setTimeout(viewNowTime, 1000/24);
+				}
+			}
+			// タイマースタート用の仮トリガー
+			timeViewerOBJ.elmt.addEventListener('click', (evt)=>{
+				timerFlg = !timerFlg;
+				if(timerFlg) {
+					watchOBJ.setStartTime();
+					setTimeout(viewNowTime, 1000/24);
+				}
+			});
+			//
 			//スライドゲーム必要変数の初期化
 			let slideGameHaco = new Haco(gameSTs.hacoW, gameSTs.hacoH, gameSTs.bunkatsuX, gameSTs.bunkatsuY); // hacoの生成
 			let lastPanelNo = gameSTs.bunkatsuX * gameSTs.bunkatsuY; // 最後のパネルの番号
@@ -438,13 +681,14 @@
 			let numList_forRetry = []; // リトライ用のリスト
 			const poss = []; // 各パネルの座標の格納庫
 			const panelsOBJ = {}; // パネルelementを連想配列にしての格納庫
+			const keyPos = {}; // 空パネル隣接の位置を連想配列にして格納
 			//
 			// スライドゲームの初期化関数
 			const slidGameInit = () => {
 				slideGameHaco = new Haco(gameSTs.hacoW, gameSTs.hacoH, gameSTs.bunkatsuX, gameSTs.bunkatsuY); // 新規のhacoを用意
-				slideGameHaco.init(); // hacoの初期化
+				slideGameHaco.init( document.body.querySelector('div.gameView') ); // hacoの初期化
 				lastPanelNo = gameSTs.bunkatsuX * gameSTs.bunkatsuY; // 最後のパネルの番号
-				slideGameHaco.panelsSet( lastPanelNo ); // lastPanelNo個のパネルを用意
+				slideGameHaco.panelsSet( lastPanelNo ); // lastPanelNo個のパネaルを用意
 				//
 				numList.length = 0; // constで宣言されている配列をいっぺんに初期化する。
 				//
@@ -507,25 +751,33 @@
 			}
 			//panelShuffle();
 			//
+			// 新規ゲームボタン
+			document.querySelector('input#newGameBtn').addEventListener('click', ()=> {
+				// 一旦 箱を作るボタンを押したことにする。
+				buildBoxBtn.dispatchEvent(new Event('click'));
+			});
 			// シャッフルボタン
-			console.log(document.querySelector('input#shuffleBtn'));
 			document.querySelector('input#shuffleBtn').addEventListener( 'click', () => {
 				console.log('click:::shuffleBtn:', gameSTs.shuffleNum);
 				panelShuffle( gameSTs.shuffleNum );
+				//
+				// メッセージの入れ替え
+				timeViewerOBJ.viewStartMes();
 			});
 			//
 			function checkAndMove(evt) {
-				//console.log(evt.target.id);
+				console.log('checkAndMove::: ' + evt.target.id);
 				// 押したパネル
 				const clickPanel = panelsOBJ[evt.target.id];
 				//clickPanel.posX = poss[8]._x;
 				//clickPanel.posY = poss[8]._y;
 				//clickPanel.move();
 				//
-				if( clickPanel.isMoving ) {
-					// パネルが移動中なら何もしない
-					return;
-				}
+				// if( clickPanel.isMoving ) {
+				// 	console.log('return@moving');
+				// 	// パネルが移動中なら何もしない
+				// 	return;
+				// }
 				//
 				// 移動判定(クリックしたパネルと空パネルの位置関係を調べる)
 				// 空のパネル
@@ -595,7 +847,92 @@
 					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-property'] = 'opacity';
 					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-duration'] = '1.5s';
 					panelsOBJ[`panel${lastPanelNo}`].elmt.style['transition-timingFunction'] = 'ease';
+					//
+					gameClear(); //　ゲームクリア処理
 				}
+			}
+			//
+			// キー操作対応
+			window.addEventListener('keydown', keyCheck);
+			function keyCheck(evt) {
+				if(!onGameIs) {return;} // ゲーム中でなけば、なにもしない。
+				console.log(evt.key);
+				panelCheckForKeyControl();
+				if( keyPos[evt.key] || keyPos[evt.key] === 0 ) {
+					console.log('evt.key::::'+ evt.key);
+					// 指定Posにあるキーを押したことにしよう
+					//console.log('keyPos:::',keyPos[evt.key], `panel${numList[keyPos[evt.key]]}`);
+					panelsOBJ[ `panel${numList[keyPos[evt.key]]}` ].elmt.dispatchEvent(new Event('click'));
+				}
+				else if( 1 <= evt.key && evt.key <= 9 ) {
+					// 3x3 の時の特別設定
+					// 押したキーのPosのパネルを押したことにしよう
+					panelsOBJ[`panel${numList[evt.key-1]}`].elmt.dispatchEvent(new Event('click'));
+				}
+			}
+			//
+			function panelCheckForKeyControl() {
+				// 空のパネル
+				const emptyPanel = panelsOBJ[`panel${lastPanelNo}`];
+				// マス上の位置
+				const emptyPos = numList.indexOf(emptyPanel.No);
+				//
+				// emptyの上のPos
+				keyPos['ArrowDown'] = emptyPos - gameSTs.bunkatsuX >= 0 ? emptyPos - gameSTs.bunkatsuX : null;
+				// emptyの下のパネル
+				keyPos['ArrowUp'] = emptyPos + gameSTs.bunkatsuX < lastPanelNo ? emptyPos + gameSTs.bunkatsuX : null;
+				// emptyの左のパネル
+				keyPos['ArrowRight'] = emptyPos % gameSTs.bunkatsuX > 0 ? emptyPos - 1 : null;
+				// emptyの右のパネル
+				keyPos['ArrowLeft'] = emptyPos % gameSTs.bunkatsuX < gameSTs.bunkatsuX - 1 ? emptyPos + 1 : null;
+				//
+				// console.log('keyPos:::',keyPos);
+			}
+
+			// ゲーム開始~カウントダウン
+			function getReady() {
+				// シャッフルする
+				panelShuffle( gameSTs.shuffleNum );
+				// カウントダウンのスタート
+				const startCountDown = function( count ) {
+					slideGameHaco.mesElmt.innerHTML = count;
+					slideGameHaco.mesElmt.classList.add('countDown');
+					if( count > 0) {
+						setTimeout(function() {
+							count--;
+							slideGameHaco.mesElmt.classList.remove('countDown');
+							//
+							startCountDown( count );
+						},1000);
+					}
+					else {
+						slideGameHaco.mesElmt.classList.remove('countDown');
+						slideGameHaco.mesElmt.classList.add('countEnd');
+						slideGameHaco.wrapElmt.classList.add('countEnd');
+						setTimeout(function() {
+							slideGameHaco.mesElmt.classList.remove('countEnd');
+							slideGameHaco.wrapElmt.classList.remove('countEnd');
+							slideGameHaco.wrapElmt.style['display'] = 'none';
+							//
+							gameStart(); // ゲーム開始処理
+						}, 300);
+					}
+				};
+				startCountDown(3);
+			}
+			let onGameIs = false;
+			function gameStart() {
+				// ゲーム開始
+				onGameIs = true;
+				// タイマースタート
+				watchOBJ.setStartTime();
+				setTimeout(viewNowTime, 1000/24);
+			}
+			function gameClear() {
+				onGameIs = false; // フラグでタイマーが止まる
+				// クリックでパネルが押せないようにのふたの表示
+				slideGameHaco.mesElmt.innerHTML = 'CLEAR!!!'
+				slideGameHaco.wrapElmt.style['display'] = 'block';
 			}
 		</script>
 </body>
